@@ -385,6 +385,93 @@ class BedrockKnowledgeBaseSetup:
             logger.error(f"Error creating OpenSearch collection: {e}")
             raise
     
+    def create_opensearch_index(self, collection_arn: str) -> None:
+        """
+        Create OpenSearch index in the collection.
+        
+        Args:
+            collection_arn: ARN of the OpenSearch collection
+        """
+        try:
+            from opensearchpy import OpenSearch, RequestsHttpConnection
+            from requests_aws4auth import AWS4Auth
+            import boto3
+            
+            # Get AWS credentials
+            credentials = boto3.Session().get_credentials()
+            awsauth = AWS4Auth(
+                credentials.access_key,
+                credentials.secret_key,
+                self.aws_region,
+                'aoss',
+                session_token=credentials.token
+            )
+            
+            # Extract collection endpoint
+            collection_id = collection_arn.split('/')[-1]
+            host = f"{collection_id}.{self.aws_region}.aoss.amazonaws.com"
+            
+            # Create OpenSearch client
+            client = OpenSearch(
+                hosts=[{'host': host, 'port': 443}],
+                http_auth=awsauth,
+                use_ssl=True,
+                verify_certs=True,
+                connection_class=RequestsHttpConnection,
+                timeout=300
+            )
+            
+            # Define index name and mapping
+            index_name = 'bedrock-knowledge-base-default-index'
+            index_body = {
+                'settings': {
+                    'index': {
+                        'knn': True,
+                        'knn.algo_param.ef_search': 512
+                    }
+                },
+                'mappings': {
+                    'properties': {
+                        'bedrock-knowledge-base-default-vector': {
+                            'type': 'knn_vector',
+                            'dimension': 1024,  # Titan Embeddings v2 dimension
+                            'method': {
+                                'name': 'hnsw',
+                                'engine': 'faiss',
+                                'parameters': {
+                                    'ef_construction': 512,
+                                    'm': 16
+                                }
+                            }
+                        },
+                        'AMAZON_BEDROCK_TEXT_CHUNK': {
+                            'type': 'text'
+                        },
+                        'AMAZON_BEDROCK_METADATA': {
+                            'type': 'text'
+                        }
+                    }
+                }
+            }
+            
+            # Check if index exists
+            if client.indices.exists(index=index_name):
+                logger.info(f"Index {index_name} already exists")
+                return
+            
+            # Create index
+            client.indices.create(index=index_name, body=index_body)
+            logger.info(f"Created OpenSearch index: {index_name}")
+            
+            # Wait for index to be ready
+            time.sleep(5)
+            
+        except ImportError:
+            logger.warning("opensearch-py or requests-aws4auth not installed. Skipping index creation.")
+            logger.warning("Index will be created automatically during first ingestion.")
+        except Exception as e:
+            logger.warning(f"Could not create index (will be created during ingestion): {e}")
+    
     def create_knowledge_base(self, role_arn: str, collection_arn: str) -> str:
         """
         Create Bedrock Knowledge Base.
@@ -547,6 +634,10 @@ class BedrockKnowledgeBaseSetup:
             
             # Create OpenSearch collection
             collection_arn = self.create_opensearch_collection()
+            
+            # Create OpenSearch index
+            logger.info("Creating OpenSearch index...")
+            self.create_opensearch_index(collection_arn)
             
             # Create Knowledge Base
             kb_id = self.create_knowledge_base(role_arn, collection_arn)

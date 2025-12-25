@@ -25,7 +25,14 @@ python scripts/setup_knowledge_base_s3.py
 ### 2. 安装依赖
 
 ```bash
-pip install boto3
+pip install boto3 opensearch-py requests-aws4auth
+```
+
+或者安装完整的项目依赖：
+
+```bash
+cd aws-pricing-assistant
+pip install -r requirements.txt
 ```
 
 ### 3. 配置 AWS 凭证
