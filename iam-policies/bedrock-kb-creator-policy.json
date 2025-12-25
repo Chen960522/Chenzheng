@@ -1,0 +1,101 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "BedrockKnowledgeBaseManagement",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:CreateKnowledgeBase",
+        "bedrock:GetKnowledgeBase",
+        "bedrock:UpdateKnowledgeBase",
+        "bedrock:DeleteKnowledgeBase",
+        "bedrock:ListKnowledgeBases",
+        "bedrock:CreateDataSource",
+        "bedrock:GetDataSource",
+        "bedrock:UpdateDataSource",
+        "bedrock:DeleteDataSource",
+        "bedrock:ListDataSources",
+        "bedrock:StartIngestionJob",
+        "bedrock:GetIngestionJob",
+        "bedrock:ListIngestionJobs"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "BedrockModelAccess",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:ListFoundationModels",
+        "bedrock:GetFoundationModel"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "IAMRoleManagement",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:GetRole",
+        "iam:AttachRolePolicy",
+        "iam:PutRolePolicy",
+        "iam:PassRole",
+        "iam:ListRoles"
+      ],
+      "Resource": [
+        "arn:aws:iam::577823079867:role/AmazonBedrockExecutionRoleForKnowledgeBase*",
+        "arn:aws:iam::577823079867:role/AWSPricingAssistantKBRole"
+      ]
+    },
+    {
+      "Sid": "OpenSearchServerlessManagement",
+      "Effect": "Allow",
+      "Action": [
+        "aoss:CreateCollection",
+        "aoss:DeleteCollection",
+        "aoss:UpdateCollection",
+        "aoss:BatchGetCollection",
+        "aoss:ListCollections",
+        "aoss:CreateSecurityPolicy",
+        "aoss:GetSecurityPolicy",
+        "aoss:UpdateSecurityPolicy",
+        "aoss:DeleteSecurityPolicy",
+        "aoss:ListSecurityPolicies",
+        "aoss:CreateAccessPolicy",
+        "aoss:GetAccessPolicy",
+        "aoss:UpdateAccessPolicy",
+        "aoss:DeleteAccessPolicy",
+        "aoss:ListAccessPolicies",
+        "aoss:APIAccessAll"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "S3Access",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:PutObject",
+        "s3:CreateBucket",
+        "s3:PutBucketVersioning",
+        "s3:PutEncryptionConfiguration",
+        "s3:PutBucketPublicAccessBlock"
+      ],
+      "Resource": [
+        "arn:aws:s3:::aws-pricing-assistant-*",
+        "arn:aws:s3:::aws-pricing-assistant-*/*"
+      ]
+    },
+    {
+      "Sid": "CloudWatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:577823079867:log-group:/aws/bedrock/*"
+    }
+  ]
+}
