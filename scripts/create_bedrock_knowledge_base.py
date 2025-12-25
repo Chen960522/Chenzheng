@@ -7,37 +7,96 @@ This script:
 3. Configures S3 as the data source
 4. Sets up the embedding model
 5. Syncs the Knowledge Base with S3 data
+
+Compatible with Python 3.14+
 """
 
 import os
 import sys
 import time
 import json
+import logging
+from pathlib import Path
+from typing import Dict, Optional
+
 import boto3
 from botocore.exceptions import ClientError
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+logger = logging.getLogger(__name__)
 
-from src.config.settings import settings
-from src.utils.logger import get_logger
 
-logger = get_logger(__name__)
+def load_config() -> dict:
+    """
+    Load configuration from environment variables or .env file.
+    
+    Returns:
+        dict: Configuration dictionary
+    """
+    config = {
+        'aws_region': os.getenv('AWS_REGION', 'us-east-1'),
+        'bucket_name': os.getenv('S3_KNOWLEDGE_BASE_BUCKET', 'aws-pricing-assistant-kb-data'),
+        'embedding_model_id': os.getenv('BEDROCK_EMBEDDING_MODEL_ID', 'amazon.titan-embed-text-v2:0'),
+    }
+    
+    # Try to load from .env file if exists
+    env_file = Path(__file__).parent.parent / '.env'
+    if env_file.exists():
+        try:
+            with open(env_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        key, value = line.split('=', 1)
+                        key = key.strip().lower()
+                        value = value.strip().strip('"').strip("'")
+                        
+                        if key == 'aws_region':
+                            config['aws_region'] = value
+                        elif key == 's3_knowledge_base_bucket':
+                            config['bucket_name'] = value
+                        elif key == 'bedrock_embedding_model_id':
+                            config['embedding_model_id'] = value
+            logger.info(f"Loaded configuration from {env_file}")
+        except Exception as e:
+            logger.warning(f"Could not load .env file: {e}")
+    
+    return config
 
 
 class BedrockKnowledgeBaseSetup:
     """Setup Bedrock Knowledge Base with OpenSearch Serverless."""
     
-    def __init__(self):
-        """Initialize AWS clients."""
-        self.bedrock_agent_client = boto3.client('bedrock-agent', region_name=settings.aws_region)
-        self.iam_client = boto3.client('iam', region_name=settings.aws_region)
-        self.aoss_client = boto3.client('opensearchserverless', region_name=settings.aws_region)
+    def __init__(self, config: Optional[Dict] = None):
+        """
+        Initialize AWS clients.
+        
+        Args:
+            config: Configuration dictionary (optional)
+        """
+        if config is None:
+            config = load_config()
+        
+        self.config = config
+        self.aws_region = config['aws_region']
+        self.bucket_name = config['bucket_name']
+        self.embedding_model_id = config['embedding_model_id']
+        
+        self.bedrock_agent_client = boto3.client('bedrock-agent', region_name=self.aws_region)
+        self.iam_client = boto3.client('iam', region_name=self.aws_region)
+        self.aoss_client = boto3.client('opensearchserverless', region_name=self.aws_region)
         
         self.kb_name = "aws-pricing-assistant-kb"
         self.kb_description = "Knowledge Base for AWS Pricing Assistant containing service mappings, pricing data, and AWS service descriptions"
         self.collection_name = "aws-pricing-kb-collection"
         self.index_name = "aws-pricing-kb-index"
+        
+        logger.info(f"Initialized with region: {self.aws_region}, bucket: {self.bucket_name}")
         
     def create_iam_role_for_kb(self) -> str:
         """
@@ -93,7 +152,7 @@ class BedrockKnowledgeBaseSetup:
                                 "Action": [
                                     "bedrock:InvokeModel"
                                 ],
-                                "Resource": f"arn:aws:bedrock:{settings.aws_region}::foundation-model/{settings.bedrock_embedding_model_id}"
+                                "Resource": f"arn:aws:bedrock:{self.aws_region}::foundation-model/{self.embedding_model_id}"
                             }
                         ]
                     }
@@ -110,8 +169,8 @@ class BedrockKnowledgeBaseSetup:
                                     "s3:ListBucket"
                                 ],
                                 "Resource": [
-                                    f"arn:aws:s3:::{settings.s3_knowledge_base_bucket}",
-                                    f"arn:aws:s3:::{settings.s3_knowledge_base_bucket}/*"
+                                    f"arn:aws:s3:::{self.bucket_name}",
+                                    f"arn:aws:s3:::{self.bucket_name}/*"
                                 ]
                             }
                         ]
@@ -127,7 +186,7 @@ class BedrockKnowledgeBaseSetup:
                                 "Action": [
                                     "aoss:APIAccessAll"
                                 ],
-                                "Resource": f"arn:aws:aoss:{settings.aws_region}:*:collection/*"
+                                "Resource": f"arn:aws:aoss:{self.aws_region}:*:collection/*"
                             }
                         ]
                     }
@@ -222,7 +281,7 @@ class BedrockKnowledgeBaseSetup:
             # Extract collection endpoint from ARN
             # ARN format: arn:aws:aoss:region:account:collection/collection-id
             collection_id = collection_arn.split('/')[-1]
-            collection_endpoint = f"https://{collection_id}.{settings.aws_region}.aoss.amazonaws.com"
+            collection_endpoint = f"https://{collection_id}.{self.aws_region}.aoss.amazonaws.com"
             
             # Create Knowledge Base
             response = self.bedrock_agent_client.create_knowledge_base(
@@ -232,7 +291,7 @@ class BedrockKnowledgeBaseSetup:
                 knowledgeBaseConfiguration={
                     'type': 'VECTOR',
                     'vectorKnowledgeBaseConfiguration': {
-                        'embeddingModelArn': f"arn:aws:bedrock:{settings.aws_region}::foundation-model/{settings.bedrock_embedding_model_id}"
+                        'embeddingModelArn': f"arn:aws:bedrock:{self.aws_region}::foundation-model/{self.embedding_model_id}"
                     }
                 },
                 storageConfiguration={
@@ -276,7 +335,7 @@ class BedrockKnowledgeBaseSetup:
                 dataSourceConfiguration={
                     'type': 'S3',
                     's3Configuration': {
-                        'bucketArn': f"arn:aws:s3:::{settings.s3_knowledge_base_bucket}"
+                        'bucketArn': f"arn:aws:s3:::{self.bucket_name}"
                     }
                 },
                 vectorIngestionConfiguration={
@@ -392,22 +451,84 @@ class BedrockKnowledgeBaseSetup:
 
 def main():
     """Main function to run the setup."""
-    setup = BedrockKnowledgeBaseSetup()
+    print("=" * 60)
+    print("AWS Pricing Assistant - Bedrock Knowledge Base Setup")
+    print("=" * 60)
+    print()
+    
+    # Load configuration
+    config = load_config()
+    print(f"Configuration:")
+    print(f"  AWS Region: {config['aws_region']}")
+    print(f"  S3 Bucket: {config['bucket_name']}")
+    print(f"  Embedding Model: {config['embedding_model_id']}")
+    print()
+    
+    # Check AWS credentials
+    try:
+        sts = boto3.client('sts', region_name=config['aws_region'])
+        identity = sts.get_caller_identity()
+        print(f"AWS Identity:")
+        print(f"  Account: {identity['Account']}")
+        print(f"  User/Role: {identity['Arn'].split('/')[-1]}")
+        print()
+    except Exception as e:
+        print(f"⚠️  Warning: Could not verify AWS credentials: {e}")
+        print("Please ensure AWS credentials are configured.")
+        print()
+    
+    # Warning about resource creation
+    print("⚠️  This script will create the following AWS resources:")
+    print("  - IAM Role (AWSPricingAssistantKBRole)")
+    print("  - OpenSearch Serverless Collection")
+    print("  - Bedrock Knowledge Base")
+    print("  - S3 Data Source")
+    print()
+    print("These resources may incur AWS charges.")
+    print()
+    
+    # Confirm before proceeding
+    response = input("Do you want to proceed? (yes/no): ").strip().lower()
+    if response not in ['yes', 'y']:
+        print("Setup cancelled.")
+        sys.exit(0)
+    
+    print()
+    print("Starting setup...")
+    print()
+    
+    # Run setup
+    setup = BedrockKnowledgeBaseSetup(config)
     
     try:
         result = setup.setup()
         
-        print("\n✅ Bedrock Knowledge Base setup completed successfully!")
-        print(f"\nKnowledge Base ID: {result['knowledge_base_id']}")
+        print()
+        print("=" * 60)
+        print("✅ Bedrock Knowledge Base setup completed successfully!")
+        print("=" * 60)
+        print()
+        print(f"Knowledge Base ID: {result['knowledge_base_id']}")
         print(f"Data Source ID: {result['data_source_id']}")
         print(f"Ingestion Job ID: {result['ingestion_job_id']}")
-        print(f"\nNext steps:")
-        print(f"1. Update .env file with BEDROCK_KNOWLEDGE_BASE_ID={result['knowledge_base_id']}")
+        print()
+        print("Next steps:")
+        print(f"1. Update .env file with:")
+        print(f"   BEDROCK_KNOWLEDGE_BASE_ID={result['knowledge_base_id']}")
         print("2. Test Knowledge Base queries")
         print("3. Integrate with Service Mapper")
+        print()
         
     except Exception as e:
-        print(f"\n❌ Bedrock Knowledge Base setup failed: {e}")
+        print()
+        print("=" * 60)
+        print("❌ Bedrock Knowledge Base setup failed")
+        print("=" * 60)
+        print()
+        print(f"Error: {e}")
+        print()
+        print("Check the logs above for details.")
+        print()
         sys.exit(1)
 
 
