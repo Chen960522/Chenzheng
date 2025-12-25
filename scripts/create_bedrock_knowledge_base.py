@@ -275,6 +275,10 @@ class BedrockKnowledgeBaseSetup:
                     raise
             
             # 3. Create data access policy
+            # Include both the KB role and current user for index creation
+            sts = boto3.client('sts', region_name=self.aws_region)
+            current_user_arn = sts.get_caller_identity()['Arn']
+            
             data_policy_name = "aws-pricing-kb-data"
             data_policy = [
                 {
@@ -304,7 +308,8 @@ class BedrockKnowledgeBaseSetup:
                     ],
                     "Principal": [
                         f"arn:aws:iam::{account_id}:role/AWSPricingAssistantKBRole",
-                        f"arn:aws:sts::{account_id}:assumed-role/AWSPricingAssistantKBRole/*"
+                        f"arn:aws:sts::{account_id}:assumed-role/AWSPricingAssistantKBRole/*",
+                        current_user_arn  # Add current user for index creation
                     ]
                 }
             ]
