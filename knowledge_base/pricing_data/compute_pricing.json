@@ -1,0 +1,176 @@
+{
+  "category": "compute",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "pricing": [
+    {
+      "service": "EC2",
+      "service_type": "t3.micro",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "hour",
+          "price": 0.0104,
+          "currency": "USD"
+        },
+        "reserved_1yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.0062,
+          "currency": "USD"
+        },
+        "reserved_3yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.0042,
+          "currency": "USD"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "EC2",
+      "service_type": "t3.small",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "hour",
+          "price": 0.0208,
+          "currency": "USD"
+        },
+        "reserved_1yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.0124,
+          "currency": "USD"
+        },
+        "reserved_3yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.0084,
+          "currency": "USD"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "EC2",
+      "service_type": "m6i.large",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "hour",
+          "price": 0.096,
+          "currency": "USD"
+        },
+        "reserved_1yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.0576,
+          "currency": "USD"
+        },
+        "reserved_3yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.0384,
+          "currency": "USD"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "EC2",
+      "service_type": "c6i.large",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "hour",
+          "price": 0.085,
+          "currency": "USD"
+        },
+        "reserved_1yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.051,
+          "currency": "USD"
+        },
+        "reserved_3yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.034,
+          "currency": "USD"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "Lambda",
+      "service_type": "function",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "request",
+          "price": 0.0000002,
+          "currency": "USD",
+          "compute_price_per_gb_second": 0.0000166667
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "ECS",
+      "service_type": "fargate",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "vCPU-hour",
+          "price": 0.04048,
+          "currency": "USD",
+          "memory_price_per_gb_hour": 0.004445
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "EKS",
+      "service_type": "cluster",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "hour",
+          "price": 0.10,
+          "currency": "USD",
+          "note": "Per cluster hour, plus EC2 or Fargate costs"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    }
+  ]
+}

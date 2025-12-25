@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\services\service_mapper.py
+# hypothesis_version: 6.148.8
+
+[0.5, 0.6, 200, 'ALB', 'Application', 'Athena', 'Aurora', 'Blob', 'Blob storage service', 'CDN', 'COS', 'Cloud object storage', 'CloudFront', 'CloudWatch', 'Compute instance', 'DynamoDB', 'EBS', 'EC2', 'ECS', 'EFS', 'EKS', 'EMR', 'ElastiCache', 'Glue', 'IAM', 'Instance', 'KMS', 'Kinesis', 'Lambda', 'LoadBalancer', 'Memory cache cleared', 'MySQL', 'MySQL database', 'NoSQL', 'NoSQL database', 'OSS', 'On-Demand', 'PostgreSQL', 'PostgreSQL database', 'RDS', 'Route53', 'S3', 'SNS', 'SQS', 'SageMaker', 'Site-to-Site', 'Standard', 'Storage', 'VM', 'VPC', 'VPN', 'VPN connection', 'alternatives', 'aws_equivalent', 'aws_service', 'aws_service_category', 'aws_service_type', 'compute', 'database', 'db.t3.medium', 'explanation', 'memory_cache_keys', 'memory_cache_size', 'network', 'notes', 'service_type', 'specifications', 'storage', 't3.medium']

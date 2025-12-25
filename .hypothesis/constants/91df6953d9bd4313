@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\models\service_config.py
+# hypothesis_version: 6.148.8
+
+['ServiceConfig', 'alibaba', 'analytics', 'azure', 'bandwidth', 'bandwidth_mbps', 'blockchain', 'capacity', 'cdn', 'compute', 'config_id', 'container', 'cores', 'cpu', 'database', 'developer_tools', 'disk', 'disk_size', 'end_user_computing', 'game_development', 'gcp', 'huawei', 'iot', 'management', 'media_services', 'memory', 'memory_gb', 'messaging', 'ml', 'monitoring', 'network', 'network_speed', 'provider', 'quantity', 'ram', 'ram_gb', 'region', 'security', 'serverless', 'service_name', 'service_type', 'specifications', 'storage', 'storage_gb', 'tencent', 'throughput', 'vcpu', 'volume_size']

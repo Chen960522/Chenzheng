@@ -1,0 +1,123 @@
+{
+  "category": "compute",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "services": [
+    {
+      "service_name": "EC2",
+      "service_name_zh": "弹性计算云",
+      "description": "Amazon Elastic Compute Cloud (EC2) provides scalable computing capacity in the AWS cloud. Use EC2 to launch virtual servers, configure security and networking, and manage storage.",
+      "description_zh": "Amazon EC2提供AWS云中的可扩展计算容量。使用EC2启动虚拟服务器、配置安全和网络以及管理存储。",
+      "use_cases": [
+        "Web applications and websites",
+        "Development and test environments",
+        "High-performance computing",
+        "Machine learning training",
+        "Gaming servers"
+      ],
+      "key_features": [
+        "Multiple instance types optimized for different workloads",
+        "Auto Scaling for automatic capacity adjustment",
+        "Elastic Load Balancing integration",
+        "Amazon EBS for persistent block storage",
+        "Security groups and network ACLs",
+        "Spot Instances for cost savings"
+      ],
+      "pricing_model": ["on-demand", "reserved", "savings-plan", "spot"],
+      "available_regions": ["all"],
+      "related_services": ["EBS", "ELB", "Auto Scaling", "VPC"]
+    },
+    {
+      "service_name": "Lambda",
+      "service_name_zh": "Lambda函数",
+      "description": "AWS Lambda is a serverless compute service that runs your code in response to events and automatically manages the underlying compute resources.",
+      "description_zh": "AWS Lambda是一种无服务器计算服务，可响应事件运行代码并自动管理底层计算资源。",
+      "use_cases": [
+        "Real-time file processing",
+        "Data transformation",
+        "API backends",
+        "IoT backends",
+        "Scheduled tasks"
+      ],
+      "key_features": [
+        "No server management",
+        "Automatic scaling",
+        "Pay per request and compute time",
+        "Built-in fault tolerance",
+        "Integration with AWS services",
+        "Support for multiple languages"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["all"],
+      "related_services": ["API Gateway", "S3", "DynamoDB", "EventBridge"]
+    },
+    {
+      "service_name": "ECS",
+      "service_name_zh": "弹性容器服务",
+      "description": "Amazon Elastic Container Service (ECS) is a fully managed container orchestration service that makes it easy to deploy, manage, and scale containerized applications.",
+      "description_zh": "Amazon ECS是一种完全托管的容器编排服务，可轻松部署、管理和扩展容器化应用程序。",
+      "use_cases": [
+        "Microservices architectures",
+        "Batch processing",
+        "Machine learning applications",
+        "Web applications"
+      ],
+      "key_features": [
+        "AWS Fargate for serverless containers",
+        "EC2 launch type for more control",
+        "Integration with AWS services",
+        "Service discovery",
+        "Load balancing",
+        "Auto scaling"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["all"],
+      "related_services": ["Fargate", "ECR", "ELB", "CloudWatch"]
+    },
+    {
+      "service_name": "EKS",
+      "service_name_zh": "弹性Kubernetes服务",
+      "description": "Amazon Elastic Kubernetes Service (EKS) is a managed Kubernetes service that makes it easy to run Kubernetes on AWS without needing to install and operate your own Kubernetes control plane.",
+      "description_zh": "Amazon EKS是一种托管的Kubernetes服务，可轻松在AWS上运行Kubernetes，无需安装和操作自己的Kubernetes控制平面。",
+      "use_cases": [
+        "Kubernetes workloads",
+        "Hybrid deployments",
+        "Machine learning",
+        "Batch processing"
+      ],
+      "key_features": [
+        "Managed Kubernetes control plane",
+        "AWS Fargate integration",
+        "Automatic updates and patching",
+        "IAM integration",
+        "VPC networking",
+        "EKS Anywhere for on-premises"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["all"],
+      "related_services": ["Fargate", "ECR", "ELB", "VPC"]
+    },
+    {
+      "service_name": "Lightsail",
+      "service_name_zh": "Lightsail",
+      "description": "Amazon Lightsail is designed to be the easiest way to launch and manage a virtual private server with AWS. Lightsail includes everything you need to launch your project quickly.",
+      "description_zh": "Amazon Lightsail旨在成为使用AWS启动和管理虚拟专用服务器的最简单方法。Lightsail包含快速启动项目所需的一切。",
+      "use_cases": [
+        "Simple web applications",
+        "Websites",
+        "Development and test environments",
+        "Small databases"
+      ],
+      "key_features": [
+        "Predictable pricing",
+        "Easy-to-use management console",
+        "Pre-configured application stacks",
+        "Automatic snapshots",
+        "DNS management",
+        "Load balancing"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["most"],
+      "related_services": ["Route 53", "CloudFront"]
+    }
+  ]
+}

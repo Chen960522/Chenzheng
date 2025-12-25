@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\services\cloud_service_service.py
+# hypothesis_version: 6.148.8
+
+[':inc', ':sid', ':timestamp', ':true', 'Item', 'Items', 'LastEvaluatedKey', 'category-index', 'dynamodb', 'provider', 'service_category', 'service_id = :sid', 'service_name', 'source_provider', 'source_service']

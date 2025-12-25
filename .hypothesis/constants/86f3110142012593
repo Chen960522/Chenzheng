@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\services\price_calculator.py
+# hypothesis_version: 6.148.8
+
+[100, 128, 200, 730, 1000000, '0', '0.0000166667', '0.01', '0.023', '0.09', '0.115', '0.20', '1000', '1000000', '1024', '12', 'Comprehend', 'EC2', 'Lambda', 'MySQL', 'RDS', 'Rekognition', 'S3', 'SageMaker', 'avg_duration_ms', 'capacity_gb', 'cn-north-1', 'cn-northwest-1', 'compute', 'data_transfer', 'database', 'engine', 'hourly_rate', 'instance', 'memory_mb', 'on-demand', 'price_per_gb', 'price_per_gb_second', 'requests', 'serverless', 'service', 'storage', 'storage_gb', 'us-east-1']

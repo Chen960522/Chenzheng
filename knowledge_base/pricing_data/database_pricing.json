@@ -1,0 +1,216 @@
+{
+  "category": "database",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "pricing": [
+    {
+      "service": "RDS",
+      "service_type": "db.t3.micro",
+      "engine": "MySQL",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "hour",
+          "price": 0.017,
+          "currency": "USD"
+        },
+        "reserved_1yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.010,
+          "currency": "USD"
+        },
+        "reserved_3yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.007,
+          "currency": "USD"
+        }
+      },
+      "storage": {
+        "gp3": 0.115,
+        "io1": 0.125,
+        "unit": "GB-month"
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "RDS",
+      "service_type": "db.m6i.large",
+      "engine": "MySQL",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "hour",
+          "price": 0.192,
+          "currency": "USD"
+        },
+        "reserved_1yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.115,
+          "currency": "USD"
+        },
+        "reserved_3yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.077,
+          "currency": "USD"
+        }
+      },
+      "storage": {
+        "gp3": 0.115,
+        "io1": 0.125,
+        "unit": "GB-month"
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "Aurora",
+      "service_type": "db.r6i.large",
+      "engine": "MySQL",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "hour",
+          "price": 0.29,
+          "currency": "USD"
+        },
+        "reserved_1yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.174,
+          "currency": "USD"
+        },
+        "reserved_3yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.116,
+          "currency": "USD"
+        }
+      },
+      "storage": {
+        "price": 0.10,
+        "unit": "GB-month",
+        "io_price": 0.20,
+        "io_unit": "per 1 million requests"
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "DynamoDB",
+      "service_type": "on-demand",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "write_unit": "per million",
+          "write_price": 1.25,
+          "read_unit": "per million",
+          "read_price": 0.25,
+          "currency": "USD"
+        }
+      },
+      "storage": {
+        "price": 0.25,
+        "unit": "GB-month"
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "DynamoDB",
+      "service_type": "provisioned",
+      "region": "us-east-1",
+      "pricing_models": {
+        "provisioned": {
+          "write_unit": "per hour",
+          "write_price": 0.00065,
+          "read_unit": "per hour",
+          "read_price": 0.00013,
+          "currency": "USD"
+        }
+      },
+      "storage": {
+        "price": 0.25,
+        "unit": "GB-month"
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "ElastiCache",
+      "service_type": "cache.t3.micro",
+      "engine": "Redis",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "hour",
+          "price": 0.017,
+          "currency": "USD"
+        },
+        "reserved_1yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.010,
+          "currency": "USD"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "Redshift",
+      "service_type": "dc2.large",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "hour",
+          "price": 0.25,
+          "currency": "USD"
+        },
+        "reserved_1yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.150,
+          "currency": "USD"
+        },
+        "reserved_3yr": {
+          "upfront": 0,
+          "unit": "hour",
+          "price": 0.100,
+          "currency": "USD"
+        }
+      },
+      "storage": {
+        "included": "160 GB SSD per node",
+        "backup": 0.024,
+        "backup_unit": "GB-month"
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    }
+  ]
+}

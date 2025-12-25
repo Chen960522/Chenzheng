@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - AWS Pricing Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h2 data-i18n="app.title">AWS Pricing Assistant</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link" data-i18n="nav.dashboard">Dashboard</a>
+                <a href="quote-request.html" class="nav-link" data-i18n="nav.newQuote">New Quote</a>
+                <a href="quote-history.html" class="nav-link" data-i18n="nav.history">History</a>
+                <a href="user-management.html" class="nav-link active admin-only" data-i18n="nav.users">Users</a>
+            </div>
+            <div class="nav-actions">
+                <div class="language-switcher">
+                    <button id="langEn" class="lang-btn" data-lang="en">EN</button>
+                    <button id="langZh" class="lang-btn" data-lang="zh">中文</button>
+                </div>
+                <div class="user-menu">
+                    <span id="userName" class="user-name"></span>
+                    <button id="logoutBtn" class="btn btn-secondary" data-i18n="nav.logout">Logout</button>
+                </div>
+            </div>
+        </nav>
+        
+        <main class="container">
+            <div class="page-header">
+                <h1 data-i18n="users.title">User Management</h1>
+                <button id="createUserBtn" class="btn btn-primary" data-i18n="users.createUser">Create User</button>
+            </div>
+            
+            <div id="usersList" class="users-list">
+                <div class="loading" data-i18n="common.loading">Loading...</div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Create/Edit User Modal -->
+    <div id="userModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3 id="modalTitle" data-i18n="users.createUser">Create User</h3>
+            <form id="userForm">
+                <input type="hidden" id="userId" name="userId">
+                
+                <div class="form-group">
+                    <label for="userUsername" data-i18n="users.username">Username</label>
+                    <input type="text" id="userUsername" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userEmail" data-i18n="users.email">Email</label>
+                    <input type="email" id="userEmail" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userFullName" data-i18n="users.fullName">Full Name</label>
+                    <input type="text" id="userFullName" name="fullName" required>
+                </div>
+                
+                <div class="form-group" id="passwordGroup">
+                    <label for="userPassword" data-i18n="users.password">Password</label>
+                    <input type="password" id="userPassword" name="password">
+                    <small class="form-hint" data-i18n="users.passwordHint">
+                        Minimum 8 characters, include uppercase, lowercase, number, and special character
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userRole" data-i18n="users.role">Role</label>
+                    <select id="userRole" name="role" required>
+                        <option value="sales" data-i18n="users.roleSales">Sales</option>
+                        <option value="admin" data-i18n="users.roleAdmin">Admin</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="userActive" name="isActive" checked>
+                        <span data-i18n="users.active">Active</span>
+                    </label>
+                </div>
+                
+                <div id="userFormError" class="error-message" style="display: none;"></div>
+                
+                <div class="modal-actions">
+                    <button type="button" id="cancelUserBtn" class="btn btn-secondary" data-i18n="common.cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary" data-i18n="common.save">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Reset Password Modal -->
+    <div id="resetPasswordModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3 data-i18n="users.resetPassword">Reset Password</h3>
+            <p data-i18n="users.resetPasswordConfirm">Generate a new temporary password for this user?</p>
+            <div id="tempPassword" class="temp-password" style="display: none;">
+                <p data-i18n="users.tempPasswordLabel">Temporary Password:</p>
+                <code id="tempPasswordValue"></code>
+                <button id="copyPasswordBtn" class="btn btn-secondary" data-i18n="users.copyPassword">Copy</button>
+            </div>
+            <div class="modal-actions">
+                <button id="cancelResetBtn" class="btn btn-secondary" data-i18n="common.cancel">Cancel</button>
+                <button id="confirmResetBtn" class="btn btn-primary" data-i18n="common.confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete User Modal -->
+    <div id="deleteUserModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3 data-i18n="users.deleteUser">Delete User</h3>
+            <p data-i18n="users.deleteConfirm">Are you sure you want to delete this user?</p>
+            <div class="modal-actions">
+                <button id="cancelDeleteUserBtn" class="btn btn-secondary" data-i18n="common.cancel">Cancel</button>
+                <button id="confirmDeleteUserBtn" class="btn btn-danger" data-i18n="common.delete">Delete</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="i18n.js"></script>
+    <script src="auth.js"></script>
+    <script src="api.js"></script>
+    <script src="user-management.js"></script>
+</body>
+</html>

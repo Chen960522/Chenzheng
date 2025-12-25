@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Result - AWS Pricing Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h2 data-i18n="app.title">AWS Pricing Assistant</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link" data-i18n="nav.dashboard">Dashboard</a>
+                <a href="quote-request.html" class="nav-link" data-i18n="nav.newQuote">New Quote</a>
+                <a href="quote-history.html" class="nav-link" data-i18n="nav.history">History</a>
+                <a href="user-management.html" class="nav-link admin-only" data-i18n="nav.users">Users</a>
+            </div>
+            <div class="nav-actions">
+                <div class="language-switcher">
+                    <button id="langEn" class="lang-btn" data-lang="en">EN</button>
+                    <button id="langZh" class="lang-btn" data-lang="zh">中文</button>
+                </div>
+                <div class="user-menu">
+                    <span id="userName" class="user-name"></span>
+                    <button id="logoutBtn" class="btn btn-secondary" data-i18n="nav.logout">Logout</button>
+                </div>
+            </div>
+        </nav>
+        
+        <main class="container">
+            <div class="page-header">
+                <h1 data-i18n="result.title">Quote Result</h1>
+                <div class="header-actions">
+                    <button id="downloadPdfBtn" class="btn btn-secondary">
+                        <span data-i18n="result.downloadPdf">Download PDF</span>
+                    </button>
+                    <button id="downloadExcelBtn" class="btn btn-secondary">
+                        <span data-i18n="result.downloadExcel">Download Excel</span>
+                    </button>
+                    <button id="downloadJsonBtn" class="btn btn-secondary">
+                        <span data-i18n="result.downloadJson">Download JSON</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="quoteContent" class="quote-content">
+                <div class="loading" data-i18n="common.loading">Loading...</div>
+            </div>
+            
+            <!-- Quote Summary -->
+            <div id="quoteSummary" class="quote-summary" style="display: none;">
+                <div class="summary-card">
+                    <h3 data-i18n="result.summary">Summary</h3>
+                    <div class="summary-row">
+                        <span data-i18n="result.quoteId">Quote ID:</span>
+                        <strong id="quoteId"></strong>
+                    </div>
+                    <div class="summary-row">
+                        <span data-i18n="result.createdAt">Created:</span>
+                        <strong id="createdAt"></strong>
+                    </div>
+                    <div class="summary-row">
+                        <span data-i18n="result.region">Region:</span>
+                        <strong id="region"></strong>
+                    </div>
+                    <div class="summary-row total">
+                        <span data-i18n="result.monthlyTotal">Monthly Total:</span>
+                        <strong id="monthlyTotal" class="price"></strong>
+                    </div>
+                    <div class="summary-row total">
+                        <span data-i18n="result.annualTotal">Annual Total:</span>
+                        <strong id="annualTotal" class="price"></strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Service Mappings -->
+            <div id="serviceMappings" class="service-mappings" style="display: none;">
+                <h2 data-i18n="result.mappings">Service Mappings</h2>
+                <div id="mappingsList" class="mappings-list"></div>
+            </div>
+            
+            <!-- Pricing Breakdown -->
+            <div id="pricingBreakdown" class="pricing-breakdown" style="display: none;">
+                <h2 data-i18n="result.breakdown">Pricing Breakdown</h2>
+                <div id="breakdownTable" class="breakdown-table"></div>
+            </div>
+            
+            <!-- Notes -->
+            <div id="quoteNotes" class="quote-notes" style="display: none;">
+                <h3 data-i18n="result.notes">Notes</h3>
+                <p id="notesContent"></p>
+            </div>
+            
+            <div class="form-actions">
+                <button id="backBtn" class="btn btn-secondary" data-i18n="common.back">Back</button>
+                <button id="newQuoteBtn" class="btn btn-primary" data-i18n="result.newQuote">Create New Quote</button>
+            </div>
+        </main>
+    </div>
+    
+    <script src="i18n.js"></script>
+    <script src="auth.js"></script>
+    <script src="api.js"></script>
+    <script src="quote-result.js"></script>
+</body>
+</html>

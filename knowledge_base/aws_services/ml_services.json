@@ -1,0 +1,131 @@
+{
+  "category": "ml",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "services": [
+    {
+      "service_name": "SageMaker",
+      "service_name_zh": "SageMaker机器学习",
+      "description": "Amazon SageMaker is a fully managed service that provides every developer and data scientist with the ability to build, train, and deploy machine learning models quickly.",
+      "description_zh": "Amazon SageMaker是一种完全托管的服务，为每个开发人员和数据科学家提供快速构建、训练和部署机器学习模型的能力。",
+      "use_cases": [
+        "Machine learning model development",
+        "Model training at scale",
+        "Model deployment",
+        "MLOps",
+        "AutoML"
+      ],
+      "key_features": [
+        "Built-in algorithms",
+        "Jupyter notebooks",
+        "Automatic model tuning",
+        "Model monitoring",
+        "SageMaker Studio",
+        "SageMaker Autopilot",
+        "Feature Store",
+        "Model Registry"
+      ],
+      "pricing_model": ["on-demand", "savings-plan"],
+      "available_regions": ["most"],
+      "related_services": ["S3", "ECR", "Lambda", "Step Functions"]
+    },
+    {
+      "service_name": "Rekognition",
+      "service_name_zh": "Rekognition图像识别",
+      "description": "Amazon Rekognition makes it easy to add image and video analysis to your applications using proven, highly scalable, deep learning technology.",
+      "description_zh": "Amazon Rekognition使用经过验证的、高度可扩展的深度学习技术，可以轻松地将图像和视频分析添加到您的应用程序中。",
+      "use_cases": [
+        "Face detection and analysis",
+        "Object and scene detection",
+        "Content moderation",
+        "Celebrity recognition",
+        "Text in images"
+      ],
+      "key_features": [
+        "Face detection and comparison",
+        "Object and scene detection",
+        "Facial analysis",
+        "Celebrity recognition",
+        "Text detection",
+        "Content moderation",
+        "Custom labels"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["most"],
+      "related_services": ["S3", "Lambda", "Kinesis Video Streams"]
+    },
+    {
+      "service_name": "Comprehend",
+      "service_name_zh": "Comprehend自然语言处理",
+      "description": "Amazon Comprehend is a natural language processing (NLP) service that uses machine learning to find insights and relationships in text.",
+      "description_zh": "Amazon Comprehend是一种自然语言处理(NLP)服务，使用机器学习在文本中查找见解和关系。",
+      "use_cases": [
+        "Sentiment analysis",
+        "Entity recognition",
+        "Key phrase extraction",
+        "Language detection",
+        "Topic modeling"
+      ],
+      "key_features": [
+        "Sentiment analysis",
+        "Entity recognition",
+        "Key phrase extraction",
+        "Language detection",
+        "Custom classification",
+        "Custom entity recognition",
+        "PII detection"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["most"],
+      "related_services": ["S3", "Lambda", "Translate"]
+    },
+    {
+      "service_name": "Translate",
+      "service_name_zh": "Translate翻译服务",
+      "description": "Amazon Translate is a neural machine translation service that delivers fast, high-quality, and affordable language translation.",
+      "description_zh": "Amazon Translate是一种神经机器翻译服务，提供快速、高质量且经济实惠的语言翻译。",
+      "use_cases": [
+        "Website localization",
+        "Content translation",
+        "Real-time translation",
+        "Cross-lingual communication",
+        "Document translation"
+      ],
+      "key_features": [
+        "75+ languages",
+        "Custom terminology",
+        "Batch translation",
+        "Real-time translation",
+        "Automatic language detection",
+        "Formality customization"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["most"],
+      "related_services": ["Comprehend", "Polly", "Transcribe"]
+    },
+    {
+      "service_name": "Bedrock",
+      "service_name_zh": "Bedrock基础模型",
+      "description": "Amazon Bedrock is a fully managed service that makes foundation models (FMs) from leading AI companies available through an API, so you can choose from various FMs to find the model that's best suited for your use case.",
+      "description_zh": "Amazon Bedrock是一种完全托管的服务，通过API提供来自领先AI公司的基础模型(FM)，因此您可以从各种FM中进行选择，找到最适合您用例的模型。",
+      "use_cases": [
+        "Text generation",
+        "Conversational AI",
+        "Text summarization",
+        "Image generation",
+        "Code generation"
+      ],
+      "key_features": [
+        "Multiple foundation models (Claude, Llama, Titan, etc.)",
+        "Knowledge Bases",
+        "Agents",
+        "Model customization",
+        "Guardrails",
+        "Model evaluation",
+        "Serverless"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["most"],
+      "related_services": ["S3", "Lambda", "OpenSearch"]
+    }
+  ]
+}

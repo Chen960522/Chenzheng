@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote History - AWS Pricing Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h2 data-i18n="app.title">AWS Pricing Assistant</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link" data-i18n="nav.dashboard">Dashboard</a>
+                <a href="quote-request.html" class="nav-link" data-i18n="nav.newQuote">New Quote</a>
+                <a href="quote-history.html" class="nav-link active" data-i18n="nav.history">History</a>
+                <a href="user-management.html" class="nav-link admin-only" data-i18n="nav.users">Users</a>
+            </div>
+            <div class="nav-actions">
+                <div class="language-switcher">
+                    <button id="langEn" class="lang-btn" data-lang="en">EN</button>
+                    <button id="langZh" class="lang-btn" data-lang="zh">中文</button>
+                </div>
+                <div class="user-menu">
+                    <span id="userName" class="user-name"></span>
+                    <button id="logoutBtn" class="btn btn-secondary" data-i18n="nav.logout">Logout</button>
+                </div>
+            </div>
+        </nav>
+        
+        <main class="container">
+            <div class="page-header">
+                <h1 data-i18n="history.title">Quote History</h1>
+                <p data-i18n="history.subtitle">View and manage your previous quotes</p>
+            </div>
+            
+            <div class="filters">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search quotes..." 
+                        data-i18n-placeholder="history.search">
+                </div>
+                <div class="filter-group">
+                    <label for="statusFilter" data-i18n="history.status">Status:</label>
+                    <select id="statusFilter">
+                        <option value="all" data-i18n="history.allStatus">All</option>
+                        <option value="draft" data-i18n="history.draft">Draft</option>
+                        <option value="finalized" data-i18n="history.finalized">Finalized</option>
+                        <option value="sent" data-i18n="history.sent">Sent</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="historyList" class="history-list">
+                <div class="loading" data-i18n="common.loading">Loading...</div>
+            </div>
+            
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <p data-i18n="history.empty">No quotes found</p>
+                <a href="quote-request.html" class="btn btn-primary" data-i18n="history.createFirst">Create Your First Quote</a>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3 data-i18n="history.deleteTitle">Delete Quote</h3>
+            <p data-i18n="history.deleteConfirm">Are you sure you want to delete this quote?</p>
+            <div class="modal-actions">
+                <button id="cancelDeleteBtn" class="btn btn-secondary" data-i18n="common.cancel">Cancel</button>
+                <button id="confirmDeleteBtn" class="btn btn-danger" data-i18n="common.delete">Delete</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="i18n.js"></script>
+    <script src="auth.js"></script>
+    <script src="api.js"></script>
+    <script src="quote-history.js"></script>
+</body>
+</html>

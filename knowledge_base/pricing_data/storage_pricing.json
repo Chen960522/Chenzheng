@@ -1,0 +1,180 @@
+{
+  "category": "storage",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "pricing": [
+    {
+      "service": "S3",
+      "service_type": "Standard",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "GB-month",
+          "price": 0.023,
+          "currency": "USD",
+          "tiers": {
+            "first_50tb": 0.023,
+            "next_450tb": 0.022,
+            "over_500tb": 0.021
+          }
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      },
+      "requests": {
+        "put_post": 0.005,
+        "get_select": 0.0004,
+        "unit": "per 1000 requests"
+      }
+    },
+    {
+      "service": "S3",
+      "service_type": "Standard-IA",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "GB-month",
+          "price": 0.0125,
+          "currency": "USD"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      },
+      "requests": {
+        "put_post": 0.01,
+        "get_select": 0.001,
+        "retrieval": 0.01,
+        "unit": "per 1000 requests or per GB"
+      }
+    },
+    {
+      "service": "S3",
+      "service_type": "Glacier Flexible Retrieval",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "GB-month",
+          "price": 0.0036,
+          "currency": "USD"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      },
+      "requests": {
+        "upload": 0.03,
+        "retrieval_expedited": 0.03,
+        "retrieval_standard": 0.05,
+        "retrieval_bulk": 0.025,
+        "unit": "per 1000 requests or per GB"
+      }
+    },
+    {
+      "service": "S3",
+      "service_type": "Glacier Deep Archive",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "GB-month",
+          "price": 0.00099,
+          "currency": "USD"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      },
+      "requests": {
+        "upload": 0.05,
+        "retrieval_standard": 0.02,
+        "retrieval_bulk": 0.0025,
+        "unit": "per 1000 requests or per GB"
+      }
+    },
+    {
+      "service": "EBS",
+      "service_type": "gp3",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "GB-month",
+          "price": 0.08,
+          "currency": "USD",
+          "iops_price": 0.005,
+          "throughput_price": 0.04,
+          "iops_unit": "per provisioned IOPS-month",
+          "throughput_unit": "per provisioned MB/s-month"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.0,
+        "unit": "GB",
+        "note": "No data transfer charges within same AZ"
+      }
+    },
+    {
+      "service": "EBS",
+      "service_type": "io2",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "GB-month",
+          "price": 0.125,
+          "currency": "USD",
+          "iops_price": 0.065,
+          "iops_unit": "per provisioned IOPS-month"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.0,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "EFS",
+      "service_type": "Standard",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "GB-month",
+          "price": 0.30,
+          "currency": "USD"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    },
+    {
+      "service": "EFS",
+      "service_type": "Infrequent Access",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "unit": "GB-month",
+          "price": 0.025,
+          "currency": "USD",
+          "access_price": 0.01,
+          "access_unit": "per GB accessed"
+        }
+      },
+      "data_transfer": {
+        "ingress": 0.0,
+        "egress": 0.09,
+        "unit": "GB"
+      }
+    }
+  ]
+}

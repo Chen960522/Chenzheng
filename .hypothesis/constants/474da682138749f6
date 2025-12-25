@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\utils\logger.py
+# hypothesis_version: 6.148.8
+
+[1000, '%Y-%m-%d %H:%M:%S', 'logEvents', 'logGroupName', 'logStreamName', 'message', 'nextSequenceToken', 'production', 'sequenceToken', 'timestamp']

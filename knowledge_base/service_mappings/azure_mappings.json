@@ -1,0 +1,171 @@
+{
+  "provider": "azure",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "mappings": [
+    {
+      "source_service": "Virtual Machines",
+      "source_service_zh": "虚拟机",
+      "service_category": "compute",
+      "aws_service": "EC2",
+      "aws_service_type": "instance",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "instance_type_mappings": {
+          "B1s": "t3.micro",
+          "B2s": "t3.small",
+          "B2ms": "t3.medium",
+          "D2s_v3": "m6i.large",
+          "D4s_v3": "m6i.xlarge",
+          "F2s_v2": "c6i.large",
+          "F4s_v2": "c6i.xlarge"
+        }
+      },
+      "notes": "Azure VMs map to EC2. B-series are burstable (T3), D-series are general purpose (M6i), F-series are compute-optimized (C6i).",
+      "alternatives": ["Lightsail"]
+    },
+    {
+      "source_service": "Blob Storage",
+      "source_service_zh": "Blob存储",
+      "service_category": "storage",
+      "aws_service": "S3",
+      "aws_service_type": "storage",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "storage_class_mappings": {
+          "Hot": "S3 Standard",
+          "Cool": "S3 Standard-IA",
+          "Archive": "S3 Glacier Flexible Retrieval"
+        }
+      },
+      "notes": "Azure Blob Storage tiers map to S3 storage classes based on access frequency.",
+      "alternatives": []
+    },
+    {
+      "source_service": "Azure SQL Database",
+      "source_service_zh": "Azure SQL数据库",
+      "service_category": "database",
+      "aws_service": "RDS",
+      "aws_service_type": "database",
+      "confidence": 0.9,
+      "mapping_rules": {
+        "engine_mappings": {
+          "SQL Server": "SQL Server"
+        }
+      },
+      "notes": "Azure SQL Database maps to RDS SQL Server. For MySQL/PostgreSQL, use Azure Database for MySQL/PostgreSQL.",
+      "alternatives": ["Aurora"]
+    },
+    {
+      "source_service": "Azure Database for MySQL",
+      "source_service_zh": "Azure MySQL数据库",
+      "service_category": "database",
+      "aws_service": "RDS",
+      "aws_service_type": "database",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "engine_mappings": {
+          "MySQL": "MySQL"
+        }
+      },
+      "notes": "Azure Database for MySQL maps directly to RDS MySQL.",
+      "alternatives": ["Aurora MySQL"]
+    },
+    {
+      "source_service": "Azure Database for PostgreSQL",
+      "source_service_zh": "Azure PostgreSQL数据库",
+      "service_category": "database",
+      "aws_service": "RDS",
+      "aws_service_type": "database",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "engine_mappings": {
+          "PostgreSQL": "PostgreSQL"
+        }
+      },
+      "notes": "Azure Database for PostgreSQL maps directly to RDS PostgreSQL.",
+      "alternatives": ["Aurora PostgreSQL"]
+    },
+    {
+      "source_service": "Load Balancer",
+      "source_service_zh": "负载均衡器",
+      "service_category": "network",
+      "aws_service": "ELB",
+      "aws_service_type": "load_balancer",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "type_mappings": {
+          "Basic": "Network Load Balancer",
+          "Standard": "Application Load Balancer"
+        }
+      },
+      "notes": "Azure Load Balancer maps to AWS NLB/ALB based on tier.",
+      "alternatives": []
+    },
+    {
+      "source_service": "Azure CDN",
+      "source_service_zh": "Azure CDN",
+      "service_category": "cdn",
+      "aws_service": "CloudFront",
+      "aws_service_type": "cdn",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "Azure CDN maps to CloudFront for content delivery.",
+      "alternatives": []
+    },
+    {
+      "source_service": "Synapse Analytics",
+      "source_service_zh": "Synapse分析",
+      "service_category": "analytics",
+      "aws_service": "Redshift",
+      "aws_service_type": "data_warehouse",
+      "confidence": 0.8,
+      "mapping_rules": {},
+      "notes": "Azure Synapse Analytics is a data warehouse similar to Redshift.",
+      "alternatives": ["Athena"]
+    },
+    {
+      "source_service": "Azure Machine Learning",
+      "source_service_zh": "Azure机器学习",
+      "service_category": "ml",
+      "aws_service": "SageMaker",
+      "aws_service_type": "ml_platform",
+      "confidence": 0.9,
+      "mapping_rules": {},
+      "notes": "Azure ML provides ML capabilities similar to SageMaker.",
+      "alternatives": []
+    },
+    {
+      "source_service": "AKS",
+      "source_service_zh": "Azure Kubernetes服务",
+      "service_category": "container",
+      "aws_service": "EKS",
+      "aws_service_type": "kubernetes",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "AKS is a managed Kubernetes service equivalent to EKS.",
+      "alternatives": ["ECS"]
+    },
+    {
+      "source_service": "Azure Functions",
+      "source_service_zh": "Azure函数",
+      "service_category": "serverless",
+      "aws_service": "Lambda",
+      "aws_service_type": "function",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "Azure Functions is a serverless compute service equivalent to Lambda.",
+      "alternatives": []
+    },
+    {
+      "source_service": "Service Bus",
+      "source_service_zh": "服务总线",
+      "service_category": "messaging",
+      "aws_service": "SQS",
+      "aws_service_type": "queue",
+      "confidence": 0.9,
+      "mapping_rules": {},
+      "notes": "Azure Service Bus provides messaging similar to SQS/SNS.",
+      "alternatives": ["SNS"]
+    }
+  ]
+}

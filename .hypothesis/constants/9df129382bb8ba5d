@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\services\agent_service.py
+# hypothesis_version: 6.148.8
+
+[3600, 'An error occurred', 'Quote not found', 'Session not found', 'completed', 'created_at', 'en', 'error', 'message', 'processing', 'quote', 'quote_id', 'status', 'success', 'total_annual_cost', 'total_monthly_cost', 'type']

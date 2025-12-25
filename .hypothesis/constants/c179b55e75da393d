@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\models\quote.py
+# hypothesis_version: 6.148.8
+
+[0.0, 0.8, 1.0, '0', 'AWSServiceMapping', 'Quote', 'USD', 'alternatives', 'annual_cost', 'aws_mappings', 'aws_service', 'aws_service_category', 'aws_service_type', 'confidence_score', 'created_at', 'currency', 'draft', 'en', 'excel', 'explanation', 'export_urls', 'finalized', 'json', 'language', 'mapping_id', 'monthly_cost', 'notes', 'original_input', 'parsed_services', 'pdf', 'pricing_results', 'quote_id', 'region', 'sent', 'service_count', 'specifications', 'status', 'total_annual_cost', 'total_monthly_cost', 'updated_at', 'us-east-1', 'user_id', 'zh']

@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\services\export\pdf_exporter.py
+# hypothesis_version: 6.148.8
+
+[0.1, 0.2, 0.3, 0.75, 1.5, 604800, '#232F3E', '#F0F0F0', '#FFD700', ', ', 'AES256', 'ALIGN', 'Annual Cost', 'BACKGROUND', 'BOTTOMPADDING', 'Bucket', 'CENTER', 'Created Date', 'CustomHeading', 'CustomTitle', 'FONTNAME', 'FONTSIZE', 'GRID', 'Heading1', 'Heading2', 'Helvetica-Bold', 'Key', 'LEFT', 'Monthly Cost', 'Normal', 'Notes', 'Pricing Model', 'RIGHT', 'Region', 'Status', 'TEXTCOLOR', 'TOPPADDING', 'alternatives', 'annual_cost', 'application/pdf', 'aws-pricing-quotes', 'aws_mappings', 'benefits', 'created_date', 'descriptions', 'disclaimers', 'en', 'get_object', 'header', 'items', 'label', 'mappings', 'monthly_cost', 'notes', 'original_services', 'pricing', 'pricing_model', 'quote_id', 'region', 's3', 'services', 'status', 'title', 'total_annual', 'total_monthly', 'wb', 'zh', '创建日期', '区域', '备注', '定价模式', '年度费用', '月度费用', '状态']

@@ -1,0 +1,96 @@
+{
+  "category": "data_transfer",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "pricing": [
+    {
+      "service": "Data Transfer",
+      "service_type": "Internet",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "ingress": 0.0,
+          "egress_first_10tb": 0.09,
+          "egress_next_40tb": 0.085,
+          "egress_next_100tb": 0.07,
+          "egress_over_150tb": 0.05,
+          "unit": "GB",
+          "currency": "USD"
+        }
+      }
+    },
+    {
+      "service": "Data Transfer",
+      "service_type": "CloudFront",
+      "region": "us-east-1",
+      "pricing_models": {
+        "on_demand": {
+          "data_transfer_out_first_10tb": 0.085,
+          "data_transfer_out_next_40tb": 0.080,
+          "data_transfer_out_next_100tb": 0.060,
+          "data_transfer_out_next_350tb": 0.040,
+          "data_transfer_out_over_500tb": 0.030,
+          "unit": "GB",
+          "currency": "USD"
+        }
+      },
+      "requests": {
+        "http": 0.0075,
+        "https": 0.010,
+        "unit": "per 10,000 requests"
+      }
+    },
+    {
+      "service": "Data Transfer",
+      "service_type": "Inter-Region",
+      "source_region": "us-east-1",
+      "destination_region": "us-west-1",
+      "pricing_models": {
+        "on_demand": {
+          "price": 0.02,
+          "unit": "GB",
+          "currency": "USD"
+        }
+      }
+    },
+    {
+      "service": "Data Transfer",
+      "service_type": "Inter-Region",
+      "source_region": "us-east-1",
+      "destination_region": "eu-west-1",
+      "pricing_models": {
+        "on_demand": {
+          "price": 0.02,
+          "unit": "GB",
+          "currency": "USD"
+        }
+      }
+    },
+    {
+      "service": "Data Transfer",
+      "service_type": "Inter-Region",
+      "source_region": "us-east-1",
+      "destination_region": "ap-southeast-1",
+      "pricing_models": {
+        "on_demand": {
+          "price": 0.02,
+          "unit": "GB",
+          "currency": "USD"
+        }
+      }
+    },
+    {
+      "service": "Data Transfer",
+      "service_type": "Same-Region",
+      "region": "all",
+      "pricing_models": {
+        "on_demand": {
+          "same_az": 0.0,
+          "different_az": 0.01,
+          "unit": "GB",
+          "currency": "USD",
+          "note": "Data transfer within the same AZ is free"
+        }
+      }
+    }
+  ]
+}

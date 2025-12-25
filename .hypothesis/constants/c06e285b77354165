@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\models\cloud_service.py
+# hypothesis_version: 6.148.8
+
+['CloudService', 'ServiceMappingCache', 'aws_service', 'aws_service_type', 'aws_specs', 'confidence_score', 'crawled_at', 'created_at', 'data_quality_score', 'description', 'features', 'hit_count', 'last_updated', 'last_used', 'mapping_id', 'pricing_info', 'provider', 'service_category', 'service_id', 'service_name', 'service_name_en', 'service_name_zh', 'source_provider', 'source_service', 'source_specs', 'source_url', 'specifications']

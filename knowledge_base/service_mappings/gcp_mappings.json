@@ -1,0 +1,144 @@
+{
+  "provider": "gcp",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "mappings": [
+    {
+      "source_service": "Compute Engine",
+      "source_service_zh": "计算引擎",
+      "service_category": "compute",
+      "aws_service": "EC2",
+      "aws_service_type": "instance",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "instance_type_mappings": {
+          "e2-micro": "t3.micro",
+          "e2-small": "t3.small",
+          "e2-medium": "t3.medium",
+          "n2-standard-2": "m6i.large",
+          "n2-standard-4": "m6i.xlarge",
+          "c2-standard-4": "c6i.xlarge",
+          "c2-standard-8": "c6i.2xlarge"
+        }
+      },
+      "notes": "GCP Compute Engine E2 instances map to T3, N2 to M6i, C2 to C6i based on CPU and memory.",
+      "alternatives": ["Lightsail"]
+    },
+    {
+      "source_service": "Cloud Storage",
+      "source_service_zh": "云存储",
+      "service_category": "storage",
+      "aws_service": "S3",
+      "aws_service_type": "storage",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "storage_class_mappings": {
+          "Standard": "S3 Standard",
+          "Nearline": "S3 Standard-IA",
+          "Coldline": "S3 Glacier Flexible Retrieval",
+          "Archive": "S3 Glacier Deep Archive"
+        }
+      },
+      "notes": "GCP Cloud Storage classes map to S3 storage tiers based on access patterns.",
+      "alternatives": []
+    },
+    {
+      "source_service": "Cloud SQL",
+      "source_service_zh": "云SQL",
+      "service_category": "database",
+      "aws_service": "RDS",
+      "aws_service_type": "database",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "engine_mappings": {
+          "MySQL": "MySQL",
+          "PostgreSQL": "PostgreSQL",
+          "SQL Server": "SQL Server"
+        }
+      },
+      "notes": "GCP Cloud SQL supports standard database engines compatible with AWS RDS.",
+      "alternatives": ["Aurora"]
+    },
+    {
+      "source_service": "Cloud Load Balancing",
+      "source_service_zh": "云负载均衡",
+      "service_category": "network",
+      "aws_service": "ELB",
+      "aws_service_type": "load_balancer",
+      "confidence": 0.9,
+      "mapping_rules": {
+        "type_mappings": {
+          "TCP/UDP": "Network Load Balancer",
+          "HTTP(S)": "Application Load Balancer"
+        }
+      },
+      "notes": "GCP Load Balancing maps to AWS ALB/NLB based on protocol.",
+      "alternatives": []
+    },
+    {
+      "source_service": "Cloud CDN",
+      "source_service_zh": "云CDN",
+      "service_category": "cdn",
+      "aws_service": "CloudFront",
+      "aws_service_type": "cdn",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "GCP Cloud CDN maps to CloudFront for content delivery.",
+      "alternatives": []
+    },
+    {
+      "source_service": "BigQuery",
+      "source_service_zh": "大查询",
+      "service_category": "analytics",
+      "aws_service": "Redshift",
+      "aws_service_type": "data_warehouse",
+      "confidence": 0.8,
+      "mapping_rules": {},
+      "notes": "BigQuery is a serverless data warehouse. Consider Redshift Serverless or Athena as alternatives.",
+      "alternatives": ["Athena", "Redshift Serverless"]
+    },
+    {
+      "source_service": "Vertex AI",
+      "source_service_zh": "顶点AI",
+      "service_category": "ml",
+      "aws_service": "SageMaker",
+      "aws_service_type": "ml_platform",
+      "confidence": 0.9,
+      "mapping_rules": {},
+      "notes": "GCP Vertex AI provides ML capabilities similar to SageMaker.",
+      "alternatives": []
+    },
+    {
+      "source_service": "GKE",
+      "source_service_zh": "谷歌Kubernetes引擎",
+      "service_category": "container",
+      "aws_service": "EKS",
+      "aws_service_type": "kubernetes",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "GKE is a managed Kubernetes service equivalent to EKS.",
+      "alternatives": ["ECS"]
+    },
+    {
+      "source_service": "Cloud Functions",
+      "source_service_zh": "云函数",
+      "service_category": "serverless",
+      "aws_service": "Lambda",
+      "aws_service_type": "function",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "GCP Cloud Functions is a serverless compute service equivalent to Lambda.",
+      "alternatives": []
+    },
+    {
+      "source_service": "Pub/Sub",
+      "source_service_zh": "发布/订阅",
+      "service_category": "messaging",
+      "aws_service": "SNS",
+      "aws_service_type": "pubsub",
+      "confidence": 0.9,
+      "mapping_rules": {},
+      "notes": "GCP Pub/Sub provides pub/sub messaging similar to SNS. For queuing, consider SQS.",
+      "alternatives": ["SQS"]
+    }
+  ]
+}

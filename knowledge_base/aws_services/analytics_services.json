@@ -1,0 +1,126 @@
+{
+  "category": "analytics",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "services": [
+    {
+      "service_name": "Athena",
+      "service_name_zh": "Athena查询服务",
+      "description": "Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL.",
+      "description_zh": "Amazon Athena是一种交互式查询服务，可以使用标准SQL轻松分析Amazon S3中的数据。",
+      "use_cases": [
+        "Ad-hoc querying",
+        "Log analysis",
+        "Data lake analytics",
+        "Business intelligence",
+        "Click-stream analysis"
+      ],
+      "key_features": [
+        "Serverless",
+        "Standard SQL",
+        "Pay per query",
+        "Integration with AWS Glue",
+        "Federated queries",
+        "ACID transactions"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["most"],
+      "related_services": ["S3", "Glue", "QuickSight"]
+    },
+    {
+      "service_name": "EMR",
+      "service_name_zh": "EMR大数据平台",
+      "description": "Amazon EMR is a cloud big data platform for running large-scale distributed data processing jobs, interactive SQL queries, and machine learning applications using open-source analytics frameworks.",
+      "description_zh": "Amazon EMR是一个云大数据平台，用于使用开源分析框架运行大规模分布式数据处理作业、交互式SQL查询和机器学习应用程序。",
+      "use_cases": [
+        "Big data processing",
+        "Machine learning",
+        "Data transformation",
+        "Log analysis",
+        "Genomics"
+      ],
+      "key_features": [
+        "Apache Spark, Hadoop, Hive, Presto",
+        "Auto scaling",
+        "Spot instance support",
+        "EMR Notebooks",
+        "EMR Serverless",
+        "Integration with S3"
+      ],
+      "pricing_model": ["on-demand", "reserved"],
+      "available_regions": ["most"],
+      "related_services": ["S3", "Glue", "Redshift"]
+    },
+    {
+      "service_name": "Kinesis",
+      "service_name_zh": "Kinesis流处理",
+      "description": "Amazon Kinesis makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information.",
+      "description_zh": "Amazon Kinesis可以轻松收集、处理和分析实时流数据，以便您可以获得及时的见解并快速响应新信息。",
+      "use_cases": [
+        "Real-time analytics",
+        "Log and event data collection",
+        "IoT data streaming",
+        "Video streaming",
+        "Click-stream analysis"
+      ],
+      "key_features": [
+        "Kinesis Data Streams",
+        "Kinesis Data Firehose",
+        "Kinesis Data Analytics",
+        "Kinesis Video Streams",
+        "Real-time processing",
+        "Automatic scaling"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["most"],
+      "related_services": ["Lambda", "S3", "Redshift", "EMR"]
+    },
+    {
+      "service_name": "Glue",
+      "service_name_zh": "Glue数据集成",
+      "description": "AWS Glue is a serverless data integration service that makes it easy to discover, prepare, and combine data for analytics, machine learning, and application development.",
+      "description_zh": "AWS Glue是一种无服务器数据集成服务，可以轻松发现、准备和组合数据以进行分析、机器学习和应用程序开发。",
+      "use_cases": [
+        "ETL jobs",
+        "Data catalog",
+        "Data preparation",
+        "Schema discovery",
+        "Data lake management"
+      ],
+      "key_features": [
+        "Serverless",
+        "Data Catalog",
+        "ETL job authoring",
+        "Job scheduling",
+        "Schema inference",
+        "Integration with analytics services"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["most"],
+      "related_services": ["S3", "Athena", "Redshift", "EMR"]
+    },
+    {
+      "service_name": "QuickSight",
+      "service_name_zh": "QuickSight商业智能",
+      "description": "Amazon QuickSight is a fast, cloud-powered business intelligence service that makes it easy to deliver insights to everyone in your organization.",
+      "description_zh": "Amazon QuickSight是一种快速的云驱动商业智能服务，可以轻松地向组织中的每个人提供见解。",
+      "use_cases": [
+        "Business intelligence dashboards",
+        "Ad-hoc analysis",
+        "Embedded analytics",
+        "Mobile BI",
+        "Data visualization"
+      ],
+      "key_features": [
+        "Serverless",
+        "ML-powered insights",
+        "Embedded analytics",
+        "Pay-per-session pricing",
+        "SPICE in-memory engine",
+        "Integration with AWS data sources"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["most"],
+      "related_services": ["S3", "Athena", "Redshift", "RDS"]
+    }
+  ]
+}

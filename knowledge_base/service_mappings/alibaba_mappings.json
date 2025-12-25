@@ -1,0 +1,149 @@
+{
+  "provider": "alibaba",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "mappings": [
+    {
+      "source_service": "ECS",
+      "source_service_zh": "云服务器ECS",
+      "service_category": "compute",
+      "aws_service": "EC2",
+      "aws_service_type": "instance",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "instance_type_mappings": {
+          "ecs.t5-lc1m1.small": "t3.micro",
+          "ecs.t5-lc1m2.small": "t3.small",
+          "ecs.t5-lc1m2.large": "t3.medium",
+          "ecs.t5-lc2m4.large": "t3.large",
+          "ecs.c6.large": "c6i.large",
+          "ecs.c6.xlarge": "c6i.xlarge",
+          "ecs.c6.2xlarge": "c6i.2xlarge",
+          "ecs.g6.large": "m6i.large",
+          "ecs.g6.xlarge": "m6i.xlarge",
+          "ecs.r6.large": "r6i.large",
+          "ecs.r6.xlarge": "r6i.xlarge"
+        }
+      },
+      "notes": "Alibaba ECS T5 instances are burstable and map to AWS T3 instances. C6 instances are compute-optimized and map to C6i. G6 are general purpose mapping to M6i. R6 are memory-optimized mapping to R6i.",
+      "alternatives": ["Lightsail"]
+    },
+    {
+      "source_service": "OSS",
+      "source_service_zh": "对象存储OSS",
+      "service_category": "storage",
+      "aws_service": "S3",
+      "aws_service_type": "storage",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "storage_class_mappings": {
+          "Standard": "S3 Standard",
+          "IA": "S3 Standard-IA",
+          "Archive": "S3 Glacier Flexible Retrieval",
+          "ColdArchive": "S3 Glacier Deep Archive"
+        }
+      },
+      "notes": "Alibaba OSS storage classes map directly to S3 storage classes with similar durability and availability characteristics.",
+      "alternatives": []
+    },
+    {
+      "source_service": "RDS",
+      "source_service_zh": "云数据库RDS",
+      "service_category": "database",
+      "aws_service": "RDS",
+      "aws_service_type": "database",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "engine_mappings": {
+          "MySQL": "MySQL",
+          "PostgreSQL": "PostgreSQL",
+          "SQL Server": "SQL Server",
+          "MariaDB": "MariaDB"
+        }
+      },
+      "notes": "Alibaba RDS supports the same database engines as AWS RDS. Instance sizing should be mapped based on CPU and memory specifications.",
+      "alternatives": ["Aurora"]
+    },
+    {
+      "source_service": "SLB",
+      "source_service_zh": "负载均衡SLB",
+      "service_category": "network",
+      "aws_service": "ELB",
+      "aws_service_type": "load_balancer",
+      "confidence": 0.9,
+      "mapping_rules": {
+        "type_mappings": {
+          "Layer 4": "Network Load Balancer",
+          "Layer 7": "Application Load Balancer"
+        }
+      },
+      "notes": "Alibaba SLB Layer 4 maps to NLB, Layer 7 maps to ALB. Consider using ALB for HTTP/HTTPS traffic with advanced routing.",
+      "alternatives": ["CloudFront"]
+    },
+    {
+      "source_service": "CDN",
+      "source_service_zh": "内容分发网络CDN",
+      "service_category": "cdn",
+      "aws_service": "CloudFront",
+      "aws_service_type": "cdn",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "Alibaba CDN maps directly to CloudFront. Both provide global edge locations and similar caching capabilities.",
+      "alternatives": []
+    },
+    {
+      "source_service": "MaxCompute",
+      "source_service_zh": "大数据计算服务MaxCompute",
+      "service_category": "analytics",
+      "aws_service": "Redshift",
+      "aws_service_type": "data_warehouse",
+      "confidence": 0.8,
+      "mapping_rules": {},
+      "notes": "MaxCompute is a data warehouse service similar to Redshift. For serverless analytics, consider Athena as an alternative.",
+      "alternatives": ["Athena", "EMR"]
+    },
+    {
+      "source_service": "PAI",
+      "source_service_zh": "机器学习平台PAI",
+      "service_category": "ml",
+      "aws_service": "SageMaker",
+      "aws_service_type": "ml_platform",
+      "confidence": 0.9,
+      "mapping_rules": {},
+      "notes": "Alibaba PAI provides similar ML capabilities to SageMaker including training, deployment, and model management.",
+      "alternatives": []
+    },
+    {
+      "source_service": "ACK",
+      "source_service_zh": "容器服务Kubernetes版ACK",
+      "service_category": "container",
+      "aws_service": "EKS",
+      "aws_service_type": "kubernetes",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "Alibaba ACK is a managed Kubernetes service equivalent to EKS. Both provide standard Kubernetes APIs.",
+      "alternatives": ["ECS with Fargate"]
+    },
+    {
+      "source_service": "FC",
+      "source_service_zh": "函数计算FC",
+      "service_category": "serverless",
+      "aws_service": "Lambda",
+      "aws_service_type": "function",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "Alibaba Function Compute maps directly to AWS Lambda. Both are serverless compute services with similar pricing models.",
+      "alternatives": []
+    },
+    {
+      "source_service": "MNS",
+      "source_service_zh": "消息服务MNS",
+      "service_category": "messaging",
+      "aws_service": "SQS",
+      "aws_service_type": "queue",
+      "confidence": 0.9,
+      "mapping_rules": {},
+      "notes": "Alibaba MNS queue service maps to SQS. For pub/sub messaging, consider SNS as well.",
+      "alternatives": ["SNS"]
+    }
+  ]
+}

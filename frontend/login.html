@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AWS Pricing Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo">
+                <h1 data-i18n="app.title">AWS Pricing Assistant</h1>
+                <p data-i18n="app.subtitle">AI-Powered Cloud Pricing Tool</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username" data-i18n="login.username">Username</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" data-i18n="login.password">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                </div>
+                
+                <div id="loginError" class="error-message" style="display: none;"></div>
+                
+                <button type="submit" class="btn btn-primary" data-i18n="login.submit">Login</button>
+            </form>
+            
+            <div class="language-switcher">
+                <button id="langEn" class="lang-btn active" data-lang="en">English</button>
+                <button id="langZh" class="lang-btn" data-lang="zh">中文</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="i18n.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

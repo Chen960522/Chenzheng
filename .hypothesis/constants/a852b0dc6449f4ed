@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\config\aws_clients.py
+# hypothesis_version: 6.148.8
+
+['AWSClients', 'bedrock-runtime', 'dynamodb', 'logs', 'pricing', 's3', 'secretsmanager', 'us-east-1']

@@ -1,0 +1,128 @@
+{
+  "category": "network",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "services": [
+    {
+      "service_name": "VPC",
+      "service_name_zh": "虚拟私有云",
+      "description": "Amazon Virtual Private Cloud (VPC) lets you provision a logically isolated section of the AWS Cloud where you can launch AWS resources in a virtual network that you define.",
+      "description_zh": "Amazon VPC允许您在AWS云中配置一个逻辑隔离的部分，您可以在其中启动AWS资源到您定义的虚拟网络中。",
+      "use_cases": [
+        "Isolated cloud resources",
+        "Multi-tier web applications",
+        "Hybrid cloud architectures",
+        "Disaster recovery"
+      ],
+      "key_features": [
+        "Subnets",
+        "Route tables",
+        "Internet gateways",
+        "NAT gateways",
+        "Security groups",
+        "Network ACLs",
+        "VPC peering",
+        "VPN connections"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["all"],
+      "related_services": ["EC2", "ELB", "Direct Connect"]
+    },
+    {
+      "service_name": "CloudFront",
+      "service_name_zh": "CloudFront CDN",
+      "description": "Amazon CloudFront is a fast content delivery network (CDN) service that securely delivers data, videos, applications, and APIs to customers globally with low latency and high transfer speeds.",
+      "description_zh": "Amazon CloudFront是一种快速的内容分发网络(CDN)服务，可以安全地以低延迟和高传输速度向全球客户交付数据、视频、应用程序和API。",
+      "use_cases": [
+        "Static and dynamic content delivery",
+        "Video streaming",
+        "API acceleration",
+        "Software distribution",
+        "DDoS protection"
+      ],
+      "key_features": [
+        "Global edge network",
+        "Integration with AWS services",
+        "Custom SSL certificates",
+        "Real-time metrics",
+        "Lambda@Edge",
+        "Field-level encryption"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["global"],
+      "related_services": ["S3", "Route 53", "WAF", "Shield"]
+    },
+    {
+      "service_name": "Route 53",
+      "service_name_zh": "Route 53 DNS",
+      "description": "Amazon Route 53 is a highly available and scalable cloud Domain Name System (DNS) web service designed to route end users to Internet applications.",
+      "description_zh": "Amazon Route 53是一种高度可用且可扩展的云域名系统(DNS)Web服务，旨在将最终用户路由到Internet应用程序。",
+      "use_cases": [
+        "Domain registration",
+        "DNS routing",
+        "Health checking",
+        "Traffic management",
+        "Hybrid cloud"
+      ],
+      "key_features": [
+        "100% availability SLA",
+        "Multiple routing policies",
+        "Health checks and monitoring",
+        "Domain registration",
+        "DNSSEC",
+        "Private DNS for VPC"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["global"],
+      "related_services": ["CloudFront", "ELB", "S3"]
+    },
+    {
+      "service_name": "ELB",
+      "service_name_zh": "弹性负载均衡",
+      "description": "Elastic Load Balancing automatically distributes incoming application traffic across multiple targets, such as EC2 instances, containers, and IP addresses.",
+      "description_zh": "弹性负载均衡自动将传入的应用程序流量分配到多个目标，如EC2实例、容器和IP地址。",
+      "use_cases": [
+        "High availability applications",
+        "Auto scaling",
+        "Microservices",
+        "Containerized applications"
+      ],
+      "key_features": [
+        "Application Load Balancer (Layer 7)",
+        "Network Load Balancer (Layer 4)",
+        "Gateway Load Balancer",
+        "Health checks",
+        "SSL/TLS termination",
+        "Sticky sessions",
+        "Cross-zone load balancing"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["all"],
+      "related_services": ["EC2", "ECS", "EKS", "Auto Scaling"]
+    },
+    {
+      "service_name": "API Gateway",
+      "service_name_zh": "API网关",
+      "description": "Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale.",
+      "description_zh": "Amazon API Gateway是一种完全托管的服务，使开发人员可以轻松地创建、发布、维护、监控和保护任何规模的API。",
+      "use_cases": [
+        "RESTful APIs",
+        "WebSocket APIs",
+        "Microservices",
+        "Serverless applications",
+        "Mobile backends"
+      ],
+      "key_features": [
+        "RESTful and WebSocket APIs",
+        "API versioning",
+        "Request/response transformation",
+        "Caching",
+        "Throttling and rate limiting",
+        "API keys and usage plans",
+        "Integration with Lambda"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["all"],
+      "related_services": ["Lambda", "Cognito", "WAF"]
+    }
+  ]
+}

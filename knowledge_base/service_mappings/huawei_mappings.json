@@ -1,0 +1,127 @@
+{
+  "provider": "huawei",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "mappings": [
+    {
+      "source_service": "ECS",
+      "source_service_zh": "弹性云服务器ECS",
+      "service_category": "compute",
+      "aws_service": "EC2",
+      "aws_service_type": "instance",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "instance_type_mappings": {
+          "s6.small.1": "t3.micro",
+          "s6.medium.2": "t3.small",
+          "s6.large.2": "t3.medium",
+          "c6.large.2": "c6i.large",
+          "c6.xlarge.2": "c6i.xlarge",
+          "m6.large.8": "m6i.large",
+          "m6.xlarge.8": "m6i.xlarge"
+        }
+      },
+      "notes": "Huawei ECS instances map to AWS EC2. S6 series are general purpose (T3), C6 are compute-optimized (C6i), M6 are memory-optimized (M6i).",
+      "alternatives": ["Lightsail"]
+    },
+    {
+      "source_service": "OBS",
+      "source_service_zh": "对象存储服务OBS",
+      "service_category": "storage",
+      "aws_service": "S3",
+      "aws_service_type": "storage",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "storage_class_mappings": {
+          "Standard": "S3 Standard",
+          "Warm": "S3 Standard-IA",
+          "Cold": "S3 Glacier Flexible Retrieval"
+        }
+      },
+      "notes": "Huawei OBS storage classes map to S3 storage tiers based on access frequency.",
+      "alternatives": []
+    },
+    {
+      "source_service": "RDS",
+      "source_service_zh": "云数据库RDS",
+      "service_category": "database",
+      "aws_service": "RDS",
+      "aws_service_type": "database",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "engine_mappings": {
+          "MySQL": "MySQL",
+          "PostgreSQL": "PostgreSQL",
+          "SQL Server": "SQL Server"
+        }
+      },
+      "notes": "Huawei RDS supports standard database engines compatible with AWS RDS.",
+      "alternatives": ["Aurora"]
+    },
+    {
+      "source_service": "ELB",
+      "source_service_zh": "弹性负载均衡ELB",
+      "service_category": "network",
+      "aws_service": "ELB",
+      "aws_service_type": "load_balancer",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "Huawei ELB provides Layer 4 and Layer 7 load balancing similar to AWS ALB/NLB.",
+      "alternatives": []
+    },
+    {
+      "source_service": "CDN",
+      "source_service_zh": "内容分发网络CDN",
+      "service_category": "cdn",
+      "aws_service": "CloudFront",
+      "aws_service_type": "cdn",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "Huawei CDN maps to CloudFront for content delivery and caching.",
+      "alternatives": []
+    },
+    {
+      "source_service": "DWS",
+      "source_service_zh": "数据仓库服务DWS",
+      "service_category": "analytics",
+      "aws_service": "Redshift",
+      "aws_service_type": "data_warehouse",
+      "confidence": 0.9,
+      "mapping_rules": {},
+      "notes": "Huawei DWS is a data warehouse service similar to Redshift.",
+      "alternatives": ["Athena"]
+    },
+    {
+      "source_service": "ModelArts",
+      "source_service_zh": "AI开发平台ModelArts",
+      "service_category": "ml",
+      "aws_service": "SageMaker",
+      "aws_service_type": "ml_platform",
+      "confidence": 0.9,
+      "mapping_rules": {},
+      "notes": "Huawei ModelArts provides ML model training and deployment similar to SageMaker.",
+      "alternatives": []
+    },
+    {
+      "source_service": "CCE",
+      "source_service_zh": "云容器引擎CCE",
+      "service_category": "container",
+      "aws_service": "EKS",
+      "aws_service_type": "kubernetes",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "Huawei CCE is a managed Kubernetes service equivalent to EKS.",
+      "alternatives": ["ECS"]
+    },
+    {
+      "source_service": "FunctionGraph",
+      "source_service_zh": "函数工作流FunctionGraph",
+      "service_category": "serverless",
+      "aws_service": "Lambda",
+      "aws_service_type": "function",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "Huawei FunctionGraph is a serverless compute service equivalent to Lambda.",
+      "alternatives": []
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Quote - AWS Pricing Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h2 data-i18n="app.title">AWS Pricing Assistant</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link" data-i18n="nav.dashboard">Dashboard</a>
+                <a href="quote-request.html" class="nav-link active" data-i18n="nav.newQuote">New Quote</a>
+                <a href="quote-history.html" class="nav-link" data-i18n="nav.history">History</a>
+                <a href="user-management.html" class="nav-link admin-only" data-i18n="nav.users">Users</a>
+            </div>
+            <div class="nav-actions">
+                <div class="language-switcher">
+                    <button id="langEn" class="lang-btn" data-lang="en">EN</button>
+                    <button id="langZh" class="lang-btn" data-lang="zh">中文</button>
+                </div>
+                <div class="user-menu">
+                    <span id="userName" class="user-name"></span>
+                    <button id="logoutBtn" class="btn btn-secondary" data-i18n="nav.logout">Logout</button>
+                </div>
+            </div>
+        </nav>
+        
+        <main class="container">
+            <div class="page-header">
+                <h1 data-i18n="quote.title">Create New Quote</h1>
+                <p data-i18n="quote.subtitle">Enter cloud configuration or upload a file</p>
+            </div>
+            
+            <form id="quoteRequestForm" class="quote-form">
+                <div class="form-section">
+                    <h3 data-i18n="quote.configInput">Configuration Input</h3>
+                    
+                    <div class="form-group">
+                        <label for="configText" data-i18n="quote.configLabel">Cloud Configuration</label>
+                        <textarea 
+                            id="configText" 
+                            name="configText" 
+                            rows="10" 
+                            placeholder="Enter configuration in JSON, YAML, CSV, or plain text..."
+                            data-i18n-placeholder="quote.configPlaceholder"
+                        ></textarea>
+                        <small class="form-hint" data-i18n="quote.configHint">
+                            Supports Alibaba Cloud, Huawei Cloud, Tencent Cloud, GCP, and Azure configurations
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label data-i18n="quote.orUpload">Or Upload File</label>
+                        <div class="file-upload">
+                            <input type="file" id="configFile" name="configFile" accept=".json,.yaml,.yml,.csv,.txt">
+                            <label for="configFile" class="file-upload-label">
+                                <span data-i18n="quote.chooseFile">Choose File</span>
+                                <span id="fileName" class="file-name"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3 data-i18n="quote.preferences">Preferences</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="region" data-i18n="quote.region">AWS Region</label>
+                            <select id="region" name="region">
+                                <option value="us-east-1">US East (N. Virginia)</option>
+                                <option value="us-west-2">US West (Oregon)</option>
+                                <option value="eu-west-1">Europe (Ireland)</option>
+                                <option value="ap-southeast-1">Asia Pacific (Singapore)</option>
+                                <option value="ap-northeast-1">Asia Pacific (Tokyo)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pricingModel" data-i18n="quote.pricingModel">Pricing Model</label>
+                            <select id="pricingModel" name="pricingModel">
+                                <option value="on-demand" data-i18n="quote.onDemand">On-Demand</option>
+                                <option value="reserved" data-i18n="quote.reserved">Reserved Instance</option>
+                                <option value="savings-plan" data-i18n="quote.savingsPlan">Savings Plan</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes" data-i18n="quote.notes">Notes (Optional)</label>
+                        <textarea id="notes" name="notes" rows="3" placeholder="Add any additional notes..."
+                            data-i18n-placeholder="quote.notesPlaceholder"></textarea>
+                    </div>
+                </div>
+                
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary" data-i18n="common.cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary" data-i18n="quote.generate">Generate Quote</button>
+                </div>
+            </form>
+            
+            <!-- Processing Status -->
+            <div id="processingStatus" class="processing-status" style="display: none;">
+                <div class="status-card">
+                    <h3 data-i18n="quote.processing">Processing Your Request</h3>
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div id="statusMessages" class="status-messages"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="i18n.js"></script>
+    <script src="auth.js"></script>
+    <script src="api.js"></script>
+    <script src="websocket.js"></script>
+    <script src="quote-request.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AWS Pricing Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h2 data-i18n="app.title">AWS Pricing Assistant</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link active" data-i18n="nav.dashboard">Dashboard</a>
+                <a href="quote-request.html" class="nav-link" data-i18n="nav.newQuote">New Quote</a>
+                <a href="quote-history.html" class="nav-link" data-i18n="nav.history">History</a>
+                <a href="user-management.html" class="nav-link admin-only" data-i18n="nav.users">Users</a>
+            </div>
+            <div class="nav-actions">
+                <div class="language-switcher">
+                    <button id="langEn" class="lang-btn" data-lang="en">EN</button>
+                    <button id="langZh" class="lang-btn" data-lang="zh">中文</button>
+                </div>
+                <div class="user-menu">
+                    <span id="userName" class="user-name"></span>
+                    <button id="logoutBtn" class="btn btn-secondary" data-i18n="nav.logout">Logout</button>
+                </div>
+            </div>
+        </nav>
+        
+        <main class="container">
+            <div class="dashboard-header">
+                <h1 data-i18n="dashboard.title">Dashboard</h1>
+                <p data-i18n="dashboard.subtitle">Quick actions and recent quotes</p>
+            </div>
+            
+            <div class="quick-actions">
+                <div class="action-card">
+                    <h3 data-i18n="dashboard.newQuote">Create New Quote</h3>
+                    <p data-i18n="dashboard.newQuoteDesc">Convert cloud configurations to AWS pricing</p>
+                    <a href="quote-request.html" class="btn btn-primary" data-i18n="dashboard.startBtn">Start Now</a>
+                </div>
+                
+                <div class="action-card">
+                    <h3 data-i18n="dashboard.viewHistory">View History</h3>
+                    <p data-i18n="dashboard.viewHistoryDesc">Access your previous quotes</p>
+                    <a href="quote-history.html" class="btn btn-secondary" data-i18n="dashboard.viewBtn">View All</a>
+                </div>
+            </div>
+            
+            <div class="recent-quotes">
+                <h2 data-i18n="dashboard.recentQuotes">Recent Quotes</h2>
+                <div id="recentQuotesList" class="quotes-list">
+                    <div class="loading" data-i18n="common.loading">Loading...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="i18n.js"></script>
+    <script src="auth.js"></script>
+    <script src="api.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

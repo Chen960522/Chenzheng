@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\agents\pricing_agent.py
+# hypothesis_version: 6.148.8
+
+[0.3, 'CVM', 'EC2', 'ECS', 'OBS', 'OSS', 'RDS', 'S3', '[', 'alibaba', 'assistant', 'azure', 'compute', 'content', 'conversation', 'cpu', 'database', 'en', 'error', 'gcp', 'huawei', 'instance', 'map', 'mappings', 'memory', 'message', 'parse', 'pricing', 'pricing_results', 'provider:', 'quote', 'quote_id', 'result', 'role', 'service_count', 'services', 'services:', 'step', 'storage', 'success', 'tencent', 'total_annual_cost', 'total_monthly_cost', 'type', 'us-east-1', 'user', 'workflow_steps', 'zh', '{', '一', '鿿']

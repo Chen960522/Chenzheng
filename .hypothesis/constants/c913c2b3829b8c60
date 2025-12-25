@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\services\export\json_exporter.py
+# hypothesis_version: 6.148.8
+
+[604800, 'AES256', 'Bucket', 'Key', 'application/json', 'aws-pricing-quotes', 'aws_mappings', 'benefits', 'created_at', 'currency', 'descriptions', 'disclaimers', 'export_urls', 'get_object', 'items', 'language', 'mappings', 'notes', 'original_input', 'original_services', 'pricing', 'quote_id', 'quote_metadata', 'region', 's3', 'service_descriptions', 'services', 'status', 'total_annual', 'total_annual_cost', 'total_monthly', 'total_monthly_cost', 'updated_at', 'user_id', 'utf-8', 'value', 'w']

@@ -1,0 +1,102 @@
+{
+  "category": "container_serverless",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "services": [
+    {
+      "service_name": "Fargate",
+      "service_name_zh": "Fargate无服务器容器",
+      "description": "AWS Fargate is a serverless compute engine for containers that works with both Amazon ECS and Amazon EKS.",
+      "description_zh": "AWS Fargate是一种用于容器的无服务器计算引擎，可与Amazon ECS和Amazon EKS配合使用。",
+      "use_cases": [
+        "Microservices",
+        "Batch processing",
+        "CI/CD pipelines",
+        "Machine learning",
+        "Web applications"
+      ],
+      "key_features": [
+        "No server management",
+        "Pay for what you use",
+        "Integration with ECS and EKS",
+        "Automatic scaling",
+        "Security isolation",
+        "Spot capacity"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["most"],
+      "related_services": ["ECS", "EKS", "ECR"]
+    },
+    {
+      "service_name": "ECR",
+      "service_name_zh": "ECR容器镜像仓库",
+      "description": "Amazon Elastic Container Registry (ECR) is a fully managed container registry that makes it easy to store, manage, share, and deploy container images and artifacts.",
+      "description_zh": "Amazon ECR是一种完全托管的容器注册表，可以轻松存储、管理、共享和部署容器镜像和工件。",
+      "use_cases": [
+        "Container image storage",
+        "CI/CD pipelines",
+        "Multi-region deployments",
+        "Image scanning",
+        "Artifact management"
+      ],
+      "key_features": [
+        "Fully managed",
+        "Image scanning",
+        "Encryption",
+        "Lifecycle policies",
+        "Cross-region replication",
+        "Integration with ECS/EKS"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["all"],
+      "related_services": ["ECS", "EKS", "Fargate", "CodeBuild"]
+    },
+    {
+      "service_name": "Step Functions",
+      "service_name_zh": "Step Functions工作流",
+      "description": "AWS Step Functions is a serverless orchestration service that lets you combine AWS Lambda functions and other AWS services to build business-critical applications.",
+      "description_zh": "AWS Step Functions是一种无服务器编排服务，可让您组合AWS Lambda函数和其他AWS服务来构建业务关键型应用程序。",
+      "use_cases": [
+        "Workflow orchestration",
+        "Data processing pipelines",
+        "Microservices orchestration",
+        "IT automation",
+        "Machine learning workflows"
+      ],
+      "key_features": [
+        "Visual workflow designer",
+        "Built-in error handling",
+        "Parallel execution",
+        "Integration with AWS services",
+        "Express and Standard workflows",
+        "State machine versioning"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["most"],
+      "related_services": ["Lambda", "ECS", "Batch", "Glue"]
+    },
+    {
+      "service_name": "EventBridge",
+      "service_name_zh": "EventBridge事件总线",
+      "description": "Amazon EventBridge is a serverless event bus service that makes it easy to connect applications using data from your own applications, integrated SaaS applications, and AWS services.",
+      "description_zh": "Amazon EventBridge是一种无服务器事件总线服务，可以轻松使用来自您自己的应用程序、集成的SaaS应用程序和AWS服务的数据连接应用程序。",
+      "use_cases": [
+        "Event-driven architectures",
+        "Application integration",
+        "SaaS integration",
+        "Scheduled tasks",
+        "Real-time data processing"
+      ],
+      "key_features": [
+        "Event bus",
+        "Event rules and patterns",
+        "Schema registry",
+        "Archive and replay",
+        "Cross-account events",
+        "SaaS integration"
+      ],
+      "pricing_model": ["on-demand"],
+      "available_regions": ["most"],
+      "related_services": ["Lambda", "Step Functions", "SNS", "SQS"]
+    }
+  ]
+}

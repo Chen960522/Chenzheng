@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\services\crawlers\web_crawler.py
+# hypothesis_version: 6.148.8
+
+['alibaba', 'azure', 'crawled_at', 'data_quality_score', 'description', 'duration_seconds', 'end_time', 'error', 'failed', 'failed_providers', 'features', 'gcp', 'huawei', 'low_quality_services', 'new_services', 'pricing_info', 'provider_results', 'report', 'report_id', 'results', 'service_category', 'service_name', 'service_name_en', 'service_name_zh', 'source_url', 'specifications', 'start_time', 'status', 'success', 'successful_providers', 'summary', 'tencent', 'timestamp', 'total_new_services', 'total_providers', 'total_services', 'updated_services']

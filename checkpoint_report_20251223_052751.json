@@ -1,0 +1,119 @@
+{
+  "timestamp": "2025-12-23T05:27:51.154278",
+  "crawler": {
+    "status": "success",
+    "results": {
+      "results": {
+        "alibaba": {
+          "status": "success",
+          "new_services": 0,
+          "updated_services": 0,
+          "total_services": 11,
+          "low_quality_services": 0
+        },
+        "huawei": {
+          "status": "success",
+          "new_services": 0,
+          "updated_services": 0,
+          "total_services": 6,
+          "low_quality_services": 0
+        },
+        "tencent": {
+          "status": "success",
+          "new_services": 0,
+          "updated_services": 0,
+          "total_services": 0,
+          "low_quality_services": 0
+        },
+        "gcp": {
+          "status": "success",
+          "new_services": 0,
+          "updated_services": 0,
+          "total_services": 0,
+          "low_quality_services": 0
+        },
+        "azure": {
+          "status": "success",
+          "new_services": 0,
+          "updated_services": 0,
+          "total_services": 9,
+          "low_quality_services": 0
+        }
+      },
+      "report": {
+        "report_id": "97ce11d8-5cbf-420f-ae50-dbadf008b634",
+        "timestamp": "2025-12-23T05:27:44.630432",
+        "start_time": "2025-12-23T05:25:58.556245",
+        "end_time": "2025-12-23T05:27:44.630432",
+        "duration_seconds": 106.074187,
+        "summary": {
+          "total_providers": 5,
+          "successful_providers": 5,
+          "failed_providers": 0,
+          "total_new_services": 0,
+          "total_updated_services": 0,
+          "total_services_crawled": 26,
+          "total_low_quality_services": 0
+        },
+        "provider_results": {
+          "alibaba": {
+            "status": "success",
+            "new_services": 0,
+            "updated_services": 0,
+            "total_services": 11,
+            "low_quality_services": 0
+          },
+          "huawei": {
+            "status": "success",
+            "new_services": 0,
+            "updated_services": 0,
+            "total_services": 6,
+            "low_quality_services": 0
+          },
+          "tencent": {
+            "status": "success",
+            "new_services": 0,
+            "updated_services": 0,
+            "total_services": 0,
+            "low_quality_services": 0
+          },
+          "gcp": {
+            "status": "success",
+            "new_services": 0,
+            "updated_services": 0,
+            "total_services": 0,
+            "low_quality_services": 0
+          },
+          "azure": {
+            "status": "success",
+            "new_services": 0,
+            "updated_services": 0,
+            "total_services": 9,
+            "low_quality_services": 0
+          }
+        },
+        "successful_providers": [
+          "alibaba",
+          "huawei",
+          "tencent",
+          "gcp",
+          "azure"
+        ],
+        "failed_providers": []
+      }
+    }
+  },
+  "database": {
+    "verified": false,
+    "status": "failed"
+  },
+  "knowledge_base": {
+    "tested": false,
+    "status": "failed"
+  },
+  "tests": {
+    "passed": true,
+    "status": "passed"
+  },
+  "overall_status": "FAILED"
+}

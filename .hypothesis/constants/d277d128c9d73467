@@ -1,0 +1,4 @@
+# file: D:\AI学习\aws-pricing-assistant\src\models\user.py
+# hypothesis_version: 6.148.8
+
+['Session', 'User', 'created_at', 'email', 'expires_at', 'full_name', 'ip_address', 'is_active', 'last_login', 'password_hash', 'role', 'session_id', 'token', 'user_agent', 'user_id', 'username']

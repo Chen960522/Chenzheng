@@ -1,0 +1,145 @@
+{
+  "provider": "tencent",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "mappings": [
+    {
+      "source_service": "CVM",
+      "source_service_zh": "云服务器CVM",
+      "service_category": "compute",
+      "aws_service": "EC2",
+      "aws_service_type": "instance",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "instance_type_mappings": {
+          "S5.SMALL1": "t3.micro",
+          "S5.SMALL2": "t3.small",
+          "S5.MEDIUM2": "t3.medium",
+          "C5.LARGE8": "c6i.large",
+          "C5.2XLARGE16": "c6i.xlarge",
+          "M5.LARGE8": "m6i.large",
+          "M5.2XLARGE16": "m6i.xlarge"
+        }
+      },
+      "notes": "Tencent CVM instances map to EC2. S5 are standard instances (T3), C5 are compute-optimized (C6i), M5 are memory-optimized (M6i).",
+      "alternatives": ["Lightsail"]
+    },
+    {
+      "source_service": "COS",
+      "source_service_zh": "对象存储COS",
+      "service_category": "storage",
+      "aws_service": "S3",
+      "aws_service_type": "storage",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "storage_class_mappings": {
+          "STANDARD": "S3 Standard",
+          "STANDARD_IA": "S3 Standard-IA",
+          "ARCHIVE": "S3 Glacier Flexible Retrieval",
+          "DEEP_ARCHIVE": "S3 Glacier Deep Archive"
+        }
+      },
+      "notes": "Tencent COS storage classes map directly to S3 storage classes.",
+      "alternatives": []
+    },
+    {
+      "source_service": "TencentDB",
+      "source_service_zh": "云数据库TencentDB",
+      "service_category": "database",
+      "aws_service": "RDS",
+      "aws_service_type": "database",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "engine_mappings": {
+          "MySQL": "MySQL",
+          "PostgreSQL": "PostgreSQL",
+          "SQL Server": "SQL Server",
+          "MariaDB": "MariaDB"
+        }
+      },
+      "notes": "TencentDB supports standard database engines compatible with AWS RDS.",
+      "alternatives": ["Aurora"]
+    },
+    {
+      "source_service": "CLB",
+      "source_service_zh": "负载均衡CLB",
+      "service_category": "network",
+      "aws_service": "ELB",
+      "aws_service_type": "load_balancer",
+      "confidence": 1.0,
+      "mapping_rules": {
+        "type_mappings": {
+          "Layer 4": "Network Load Balancer",
+          "Layer 7": "Application Load Balancer"
+        }
+      },
+      "notes": "Tencent CLB provides Layer 4 and Layer 7 load balancing similar to AWS NLB/ALB.",
+      "alternatives": []
+    },
+    {
+      "source_service": "CDN",
+      "source_service_zh": "内容分发网络CDN",
+      "service_category": "cdn",
+      "aws_service": "CloudFront",
+      "aws_service_type": "cdn",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "Tencent CDN maps to CloudFront for global content delivery.",
+      "alternatives": []
+    },
+    {
+      "source_service": "CDWPG",
+      "source_service_zh": "云数据仓库PostgreSQL",
+      "service_category": "analytics",
+      "aws_service": "Redshift",
+      "aws_service_type": "data_warehouse",
+      "confidence": 0.8,
+      "mapping_rules": {},
+      "notes": "Tencent CDWPG is a PostgreSQL-based data warehouse similar to Redshift.",
+      "alternatives": ["Athena", "Aurora"]
+    },
+    {
+      "source_service": "TI-ONE",
+      "source_service_zh": "智能钛机器学习平台",
+      "service_category": "ml",
+      "aws_service": "SageMaker",
+      "aws_service_type": "ml_platform",
+      "confidence": 0.9,
+      "mapping_rules": {},
+      "notes": "Tencent TI-ONE provides ML model development and deployment similar to SageMaker.",
+      "alternatives": []
+    },
+    {
+      "source_service": "TKE",
+      "source_service_zh": "容器服务TKE",
+      "service_category": "container",
+      "aws_service": "EKS",
+      "aws_service_type": "kubernetes",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "Tencent TKE is a managed Kubernetes service equivalent to EKS.",
+      "alternatives": ["ECS"]
+    },
+    {
+      "source_service": "SCF",
+      "source_service_zh": "云函数SCF",
+      "service_category": "serverless",
+      "aws_service": "Lambda",
+      "aws_service_type": "function",
+      "confidence": 1.0,
+      "mapping_rules": {},
+      "notes": "Tencent SCF is a serverless compute service equivalent to Lambda.",
+      "alternatives": []
+    },
+    {
+      "source_service": "CMQ",
+      "source_service_zh": "消息队列CMQ",
+      "service_category": "messaging",
+      "aws_service": "SQS",
+      "aws_service_type": "queue",
+      "confidence": 0.9,
+      "mapping_rules": {},
+      "notes": "Tencent CMQ provides message queuing similar to SQS.",
+      "alternatives": ["SNS"]
+    }
+  ]
+}

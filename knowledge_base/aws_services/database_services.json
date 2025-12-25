@@ -1,0 +1,123 @@
+{
+  "category": "database",
+  "last_updated": "2024-01-15T00:00:00Z",
+  "services": [
+    {
+      "service_name": "RDS",
+      "service_name_zh": "关系数据库服务",
+      "description": "Amazon Relational Database Service (RDS) makes it easy to set up, operate, and scale a relational database in the cloud.",
+      "description_zh": "Amazon RDS可轻松在云中设置、操作和扩展关系数据库。",
+      "use_cases": [
+        "Web and mobile applications",
+        "E-commerce applications",
+        "Enterprise applications",
+        "Online gaming"
+      ],
+      "key_features": [
+        "Multiple database engines (MySQL, PostgreSQL, Oracle, SQL Server, MariaDB)",
+        "Automated backups",
+        "Multi-AZ deployments",
+        "Read replicas",
+        "Automatic software patching",
+        "Encryption at rest and in transit"
+      ],
+      "pricing_model": ["on-demand", "reserved"],
+      "available_regions": ["all"],
+      "related_services": ["Aurora", "DynamoDB", "ElastiCache"]
+    },
+    {
+      "service_name": "Aurora",
+      "service_name_zh": "Aurora数据库",
+      "description": "Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud, combining the performance and availability of high-end commercial databases with the simplicity and cost-effectiveness of open source databases.",
+      "description_zh": "Amazon Aurora是为云构建的MySQL和PostgreSQL兼容关系数据库，结合了高端商业数据库的性能和可用性以及开源数据库的简单性和成本效益。",
+      "use_cases": [
+        "Enterprise applications",
+        "SaaS applications",
+        "Web and mobile applications",
+        "Gaming applications"
+      ],
+      "key_features": [
+        "Up to 5x faster than MySQL, 3x faster than PostgreSQL",
+        "Automatic scaling",
+        "Multi-AZ replication",
+        "Serverless option",
+        "Global database",
+        "Continuous backup to S3"
+      ],
+      "pricing_model": ["on-demand", "reserved"],
+      "available_regions": ["most"],
+      "related_services": ["RDS", "DynamoDB"]
+    },
+    {
+      "service_name": "DynamoDB",
+      "service_name_zh": "DynamoDB",
+      "description": "Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.",
+      "description_zh": "Amazon DynamoDB是一种完全托管的NoSQL数据库服务，提供快速且可预测的性能以及无缝扩展。",
+      "use_cases": [
+        "Mobile and web applications",
+        "Gaming",
+        "IoT",
+        "Ad tech",
+        "Real-time bidding"
+      ],
+      "key_features": [
+        "Single-digit millisecond latency",
+        "Automatic scaling",
+        "Global tables",
+        "Point-in-time recovery",
+        "Encryption at rest",
+        "DynamoDB Streams"
+      ],
+      "pricing_model": ["on-demand", "provisioned"],
+      "available_regions": ["all"],
+      "related_services": ["Lambda", "API Gateway", "S3"]
+    },
+    {
+      "service_name": "ElastiCache",
+      "service_name_zh": "ElastiCache缓存",
+      "description": "Amazon ElastiCache is a fully managed in-memory data store and cache service supporting Redis and Memcached.",
+      "description_zh": "Amazon ElastiCache是一种完全托管的内存数据存储和缓存服务，支持Redis和Memcached。",
+      "use_cases": [
+        "Caching",
+        "Session store",
+        "Gaming leaderboards",
+        "Real-time analytics",
+        "Message queues"
+      ],
+      "key_features": [
+        "Sub-millisecond latency",
+        "Automatic failover",
+        "Backup and restore",
+        "Multi-AZ with automatic failover",
+        "Encryption",
+        "Redis and Memcached engines"
+      ],
+      "pricing_model": ["on-demand", "reserved"],
+      "available_regions": ["all"],
+      "related_services": ["RDS", "DynamoDB", "Lambda"]
+    },
+    {
+      "service_name": "Redshift",
+      "service_name_zh": "Redshift数据仓库",
+      "description": "Amazon Redshift is a fast, fully managed data warehouse that makes it simple and cost-effective to analyze all your data using standard SQL and existing Business Intelligence tools.",
+      "description_zh": "Amazon Redshift是一种快速、完全托管的数据仓库，使用标准SQL和现有商业智能工具简单且经济高效地分析所有数据。",
+      "use_cases": [
+        "Business intelligence",
+        "Data warehousing",
+        "Big data analytics",
+        "Log analysis"
+      ],
+      "key_features": [
+        "Columnar storage",
+        "Massively parallel processing",
+        "Automatic backups",
+        "Encryption",
+        "Redshift Spectrum for S3 queries",
+        "Concurrency scaling"
+      ],
+      "pricing_model": ["on-demand", "reserved"],
+      "available_regions": ["most"],
+      "related_services": ["S3", "Glue", "QuickSight"]
+    }
+  ]
+}
