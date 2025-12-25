@@ -102,7 +102,25 @@ python scripts/create_bedrock_knowledge_base.py
 - **S3 权限**: 读取知识库数据
 - **OpenSearch 权限**: 访问向量存储
 
-### 2. 创建 OpenSearch Serverless 集合
+### 2. 创建 OpenSearch Serverless 安全策略
+
+在创建集合之前，必须先创建三种安全策略：
+
+#### 加密策略 (Encryption Policy)
+- 策略名称: `{collection-name}-encryption`
+- 使用 AWS 托管密钥加密数据
+
+#### 网络策略 (Network Policy)
+- 策略名称: `{collection-name}-network`
+- 允许公共访问（可根据需要调整为 VPC 访问）
+
+#### 数据访问策略 (Data Access Policy)
+- 策略名称: `{collection-name}-data`
+- 授予 IAM 角色对集合和索引的完整访问权限
+
+### 3. 创建 OpenSearch Serverless 集合
+
+### 3. 创建 OpenSearch Serverless 集合
 
 - 集合名称: `aws-pricing-kb-collection`
 - 类型: VECTORSEARCH
@@ -110,7 +128,9 @@ python scripts/create_bedrock_knowledge_base.py
 
 等待时间: 约 3-5 分钟
 
-### 3. 创建 Knowledge Base
+### 4. 创建 Knowledge Base
+
+### 4. 创建 Knowledge Base
 
 - 名称: `aws-pricing-assistant-kb`
 - 向量索引: `aws-pricing-kb-index`
@@ -120,14 +140,16 @@ python scripts/create_bedrock_knowledge_base.py
   - `text`: 文本字段
   - `metadata`: 元数据字段
 
-### 4. 配置 S3 数据源
+### 5. 配置 S3 数据源
+
+### 5. 配置 S3 数据源
 
 - 数据源类型: S3
 - 分块策略: 固定大小
 - 最大 Token 数: 512
 - 重叠百分比: 20%
 
-### 5. 启动数据同步
+### 6. 启动数据同步
 
 自动启动数据摄取作业，将 S3 中的文档索引到 Knowledge Base。
 
@@ -166,7 +188,11 @@ Starting setup...
 2024-12-25 10:30:02 - __main__ - INFO - Attached policy: KBBedrockPolicy
 2024-12-25 10:30:03 - __main__ - INFO - Attached policy: KBS3Policy
 2024-12-25 10:30:04 - __main__ - INFO - Attached policy: KBOpenSearchPolicy
-2024-12-25 10:30:15 - __main__ - INFO - Creating OpenSearch collection: abc123
+2024-12-25 10:30:15 - __main__ - INFO - Creating OpenSearch Serverless security policies...
+2024-12-25 10:30:16 - __main__ - INFO - Created encryption policy: aws-pricing-kb-collection-encryption
+2024-12-25 10:30:17 - __main__ - INFO - Created network policy: aws-pricing-kb-collection-network
+2024-12-25 10:30:18 - __main__ - INFO - Created data access policy: aws-pricing-kb-collection-data
+2024-12-25 10:30:23 - __main__ - INFO - Creating OpenSearch collection: abc123
 2024-12-25 10:33:00 - __main__ - INFO - OpenSearch collection is active
 2024-12-25 10:33:05 - __main__ - INFO - Created Knowledge Base: KB123ABC
 2024-12-25 10:33:10 - __main__ - INFO - Created data source: DS456DEF
@@ -227,6 +253,38 @@ Next steps:
 **总计**: 约 $60-150/月
 
 ## 故障排除
+
+### 错误: OpenSearch 安全策略缺失
+
+**症状**: 
+```
+Error: No matching security policy of encryption type found for collection
+```
+
+**原因**: OpenSearch Serverless 需要先创建安全策略才能创建集合
+
+**解决方案**: 
+脚本已自动处理此问题。如果仍然出错：
+
+1. 手动删除可能存在的不完整策略：
+```bash
+aws opensearchserverless delete-security-policy \
+  --name aws-pricing-kb-collection-encryption \
+  --type encryption \
+  --region us-east-1
+
+aws opensearchserverless delete-security-policy \
+  --name aws-pricing-kb-collection-network \
+  --type network \
+  --region us-east-1
+
+aws opensearchserverless delete-access-policy \
+  --name aws-pricing-kb-collection-data \
+  --type data \
+  --region us-east-1
+```
+
+2. 重新运行脚本
 
 ### 错误: 模型访问未启用
 

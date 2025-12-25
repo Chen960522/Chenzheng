@@ -210,6 +210,124 @@ class BedrockKnowledgeBaseSetup:
             logger.error(f"Error creating IAM role: {e}")
             raise
     
+    def create_opensearch_security_policies(self) -> None:
+        """Create required security policies for OpenSearch Serverless collection."""
+        try:
+            # Get AWS account ID
+            sts = boto3.client('sts', region_name=self.aws_region)
+            account_id = sts.get_caller_identity()['Account']
+            
+            # 1. Create encryption policy
+            encryption_policy_name = f"{self.collection_name}-encryption"
+            encryption_policy = {
+                "Rules": [
+                    {
+                        "ResourceType": "collection",
+                        "Resource": [f"collection/{self.collection_name}"]
+                    }
+                ],
+                "AWSOwnedKey": True
+            }
+            
+            try:
+                self.aoss_client.create_security_policy(
+                    name=encryption_policy_name,
+                    type='encryption',
+                    policy=json.dumps(encryption_policy)
+                )
+                logger.info(f"Created encryption policy: {encryption_policy_name}")
+            except ClientError as e:
+                if e.response['Error']['Code'] == 'ConflictException':
+                    logger.info(f"Encryption policy {encryption_policy_name} already exists")
+                else:
+                    raise
+            
+            # 2. Create network policy (allow public access for simplicity)
+            network_policy_name = f"{self.collection_name}-network"
+            network_policy = [
+                {
+                    "Rules": [
+                        {
+                            "ResourceType": "collection",
+                            "Resource": [f"collection/{self.collection_name}"]
+                        },
+                        {
+                            "ResourceType": "dashboard",
+                            "Resource": [f"collection/{self.collection_name}"]
+                        }
+                    ],
+                    "AllowFromPublic": True
+                }
+            ]
+            
+            try:
+                self.aoss_client.create_security_policy(
+                    name=network_policy_name,
+                    type='network',
+                    policy=json.dumps(network_policy)
+                )
+                logger.info(f"Created network policy: {network_policy_name}")
+            except ClientError as e:
+                if e.response['Error']['Code'] == 'ConflictException':
+                    logger.info(f"Network policy {network_policy_name} already exists")
+                else:
+                    raise
+            
+            # 3. Create data access policy
+            data_policy_name = f"{self.collection_name}-data"
+            data_policy = [
+                {
+                    "Rules": [
+                        {
+                            "ResourceType": "collection",
+                            "Resource": [f"collection/{self.collection_name}"],
+                            "Permission": [
+                                "aoss:CreateCollectionItems",
+                                "aoss:DeleteCollectionItems",
+                                "aoss:UpdateCollectionItems",
+                                "aoss:DescribeCollectionItems"
+                            ]
+                        },
+                        {
+                            "ResourceType": "index",
+                            "Resource": [f"index/{self.collection_name}/*"],
+                            "Permission": [
+                                "aoss:CreateIndex",
+                                "aoss:DeleteIndex",
+                                "aoss:UpdateIndex",
+                                "aoss:DescribeIndex",
+                                "aoss:ReadDocument",
+                                "aoss:WriteDocument"
+                            ]
+                        }
+                    ],
+                    "Principal": [
+                        f"arn:aws:iam::{account_id}:role/AWSPricingAssistantKBRole",
+                        f"arn:aws:sts::{account_id}:assumed-role/AWSPricingAssistantKBRole/*"
+                    ]
+                }
+            ]
+            
+            try:
+                self.aoss_client.create_access_policy(
+                    name=data_policy_name,
+                    type='data',
+                    policy=json.dumps(data_policy)
+                )
+                logger.info(f"Created data access policy: {data_policy_name}")
+            except ClientError as e:
+                if e.response['Error']['Code'] == 'ConflictException':
+                    logger.info(f"Data access policy {data_policy_name} already exists")
+                else:
+                    raise
+            
+            # Wait for policies to propagate
+            time.sleep(5)
+            
+        except ClientError as e:
+            logger.error(f"Error creating security policies: {e}")
+            raise
+    
     def create_opensearch_collection(self) -> str:
         """
         Create OpenSearch Serverless collection.
@@ -420,6 +538,10 @@ class BedrockKnowledgeBaseSetup:
         try:
             # Create IAM role
             role_arn = self.create_iam_role_for_kb()
+            
+            # Create OpenSearch security policies
+            logger.info("Creating OpenSearch Serverless security policies...")
+            self.create_opensearch_security_policies()
             
             # Create OpenSearch collection
             collection_arn = self.create_opensearch_collection()
