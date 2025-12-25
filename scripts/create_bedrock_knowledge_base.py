@@ -217,8 +217,9 @@ class BedrockKnowledgeBaseSetup:
             sts = boto3.client('sts', region_name=self.aws_region)
             account_id = sts.get_caller_identity()['Account']
             
+            # Use shorter policy names (max 32 chars)
             # 1. Create encryption policy
-            encryption_policy_name = f"{self.collection_name}-encryption"
+            encryption_policy_name = "aws-pricing-kb-encrypt"
             encryption_policy = {
                 "Rules": [
                     {
@@ -243,7 +244,7 @@ class BedrockKnowledgeBaseSetup:
                     raise
             
             # 2. Create network policy (allow public access for simplicity)
-            network_policy_name = f"{self.collection_name}-network"
+            network_policy_name = "aws-pricing-kb-network"
             network_policy = [
                 {
                     "Rules": [
@@ -274,7 +275,7 @@ class BedrockKnowledgeBaseSetup:
                     raise
             
             # 3. Create data access policy
-            data_policy_name = f"{self.collection_name}-data"
+            data_policy_name = "aws-pricing-kb-data"
             data_policy = [
                 {
                     "Rules": [

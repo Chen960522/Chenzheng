@@ -107,15 +107,15 @@ python scripts/create_bedrock_knowledge_base.py
 在创建集合之前，必须先创建三种安全策略：
 
 #### 加密策略 (Encryption Policy)
-- 策略名称: `{collection-name}-encryption`
+- 策略名称: `aws-pricing-kb-encrypt` (≤32 字符)
 - 使用 AWS 托管密钥加密数据
 
 #### 网络策略 (Network Policy)
-- 策略名称: `{collection-name}-network`
+- 策略名称: `aws-pricing-kb-network` (≤32 字符)
 - 允许公共访问（可根据需要调整为 VPC 访问）
 
 #### 数据访问策略 (Data Access Policy)
-- 策略名称: `{collection-name}-data`
+- 策略名称: `aws-pricing-kb-data` (≤32 字符)
 - 授予 IAM 角色对集合和索引的完整访问权限
 
 ### 3. 创建 OpenSearch Serverless 集合
@@ -189,9 +189,9 @@ Starting setup...
 2024-12-25 10:30:03 - __main__ - INFO - Attached policy: KBS3Policy
 2024-12-25 10:30:04 - __main__ - INFO - Attached policy: KBOpenSearchPolicy
 2024-12-25 10:30:15 - __main__ - INFO - Creating OpenSearch Serverless security policies...
-2024-12-25 10:30:16 - __main__ - INFO - Created encryption policy: aws-pricing-kb-collection-encryption
-2024-12-25 10:30:17 - __main__ - INFO - Created network policy: aws-pricing-kb-collection-network
-2024-12-25 10:30:18 - __main__ - INFO - Created data access policy: aws-pricing-kb-collection-data
+2024-12-25 10:30:16 - __main__ - INFO - Created encryption policy: aws-pricing-kb-encrypt
+2024-12-25 10:30:17 - __main__ - INFO - Created network policy: aws-pricing-kb-network
+2024-12-25 10:30:18 - __main__ - INFO - Created data access policy: aws-pricing-kb-data
 2024-12-25 10:30:23 - __main__ - INFO - Creating OpenSearch collection: abc123
 2024-12-25 10:33:00 - __main__ - INFO - OpenSearch collection is active
 2024-12-25 10:33:05 - __main__ - INFO - Created Knowledge Base: KB123ABC
@@ -269,17 +269,17 @@ Error: No matching security policy of encryption type found for collection
 1. 手动删除可能存在的不完整策略：
 ```bash
 aws opensearchserverless delete-security-policy \
-  --name aws-pricing-kb-collection-encryption \
+  --name aws-pricing-kb-encrypt \
   --type encryption \
   --region us-east-1
 
 aws opensearchserverless delete-security-policy \
-  --name aws-pricing-kb-collection-network \
+  --name aws-pricing-kb-network \
   --type network \
   --region us-east-1
 
 aws opensearchserverless delete-access-policy \
-  --name aws-pricing-kb-collection-data \
+  --name aws-pricing-kb-data \
   --type data \
   --region us-east-1
 ```
