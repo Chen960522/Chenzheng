@@ -403,6 +403,7 @@ class BedrockKnowledgeBaseSetup:
             collection_endpoint = f"https://{collection_id}.{self.aws_region}.aoss.amazonaws.com"
             
             # Create Knowledge Base
+            # Note: Don't specify vectorIndexName here - it will be created during first ingestion
             response = self.bedrock_agent_client.create_knowledge_base(
                 name=self.kb_name,
                 description=self.kb_description,
@@ -417,11 +418,11 @@ class BedrockKnowledgeBaseSetup:
                     'type': 'OPENSEARCH_SERVERLESS',
                     'opensearchServerlessConfiguration': {
                         'collectionArn': collection_arn,
-                        'vectorIndexName': self.index_name,
+                        'vectorIndexName': 'bedrock-knowledge-base-default-index',
                         'fieldMapping': {
-                            'vectorField': 'embedding',
-                            'textField': 'text',
-                            'metadataField': 'metadata'
+                            'vectorField': 'bedrock-knowledge-base-default-vector',
+                            'textField': 'AMAZON_BEDROCK_TEXT_CHUNK',
+                            'metadataField': 'AMAZON_BEDROCK_METADATA'
                         }
                     }
                 }
