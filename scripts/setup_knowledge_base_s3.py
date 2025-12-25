@@ -5,32 +5,84 @@ This script:
 1. Creates an S3 bucket for Knowledge Base data source
 2. Uploads all JSON files from knowledge_base/ directory
 3. Sets appropriate permissions and configurations
+
+Compatible with Python 3.14+
 """
 
 import os
 import json
+import sys
+import logging
+from pathlib import Path
+from typing import List, Optional
+
 import boto3
 from botocore.exceptions import ClientError
-from pathlib import Path
-import sys
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+logger = logging.getLogger(__name__)
 
-from src.config.settings import settings
-from src.utils.logger import get_logger
 
-logger = get_logger(__name__)
+def load_config() -> dict:
+    """
+    Load configuration from environment variables or .env file.
+    
+    Returns:
+        dict: Configuration dictionary
+    """
+    config = {
+        'aws_region': os.getenv('AWS_REGION', 'us-east-1'),
+        'bucket_name': os.getenv('S3_KNOWLEDGE_BASE_BUCKET', 'aws-pricing-assistant-kb-data'),
+    }
+    
+    # Try to load from .env file if exists
+    env_file = Path(__file__).parent.parent / '.env'
+    if env_file.exists():
+        try:
+            with open(env_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        key, value = line.split('=', 1)
+                        key = key.strip().lower()
+                        value = value.strip().strip('"').strip("'")
+                        
+                        if key == 'aws_region':
+                            config['aws_region'] = value
+                        elif key == 's3_knowledge_base_bucket':
+                            config['bucket_name'] = value
+            logger.info(f"Loaded configuration from {env_file}")
+        except Exception as e:
+            logger.warning(f"Could not load .env file: {e}")
+    
+    return config
 
 
 class KnowledgeBaseS3Setup:
     """Setup S3 bucket for Bedrock Knowledge Base."""
     
-    def __init__(self):
-        """Initialize S3 client and configuration."""
-        self.s3_client = boto3.client('s3', region_name=settings.AWS_REGION)
-        self.bucket_name = settings.KNOWLEDGE_BASE_BUCKET_NAME
+    def __init__(self, config: Optional[dict] = None):
+        """
+        Initialize S3 client and configuration.
+        
+        Args:
+            config: Configuration dictionary (optional)
+        """
+        if config is None:
+            config = load_config()
+        
+        self.config = config
+        self.aws_region = config['aws_region']
+        self.bucket_name = config['bucket_name']
+        self.s3_client = boto3.client('s3', region_name=self.aws_region)
         self.knowledge_base_dir = Path(__file__).parent.parent / 'knowledge_base'
+        
+        logger.info(f"Initialized with bucket: {self.bucket_name}, region: {self.aws_region}")
         
     def create_bucket(self) -> bool:
         """
@@ -51,13 +103,13 @@ class KnowledgeBaseS3Setup:
                     raise
             
             # Create bucket
-            if settings.AWS_REGION == 'us-east-1':
+            if self.aws_region == 'us-east-1':
                 # us-east-1 doesn't need LocationConstraint
                 self.s3_client.create_bucket(Bucket=self.bucket_name)
             else:
                 self.s3_client.create_bucket(
                     Bucket=self.bucket_name,
-                    CreateBucketConfiguration={'LocationConstraint': settings.AWS_REGION}
+                    CreateBucketConfiguration={'LocationConstraint': self.aws_region}
                 )
             
             logger.info(f"Created bucket: {self.bucket_name}")
@@ -205,18 +257,56 @@ class KnowledgeBaseS3Setup:
 
 def main():
     """Main function to run the setup."""
-    setup = KnowledgeBaseS3Setup()
+    print("=" * 60)
+    print("AWS Pricing Assistant - Knowledge Base S3 Setup")
+    print("=" * 60)
+    print()
+    
+    # Load configuration
+    config = load_config()
+    print(f"Configuration:")
+    print(f"  AWS Region: {config['aws_region']}")
+    print(f"  S3 Bucket: {config['bucket_name']}")
+    print()
+    
+    # Check AWS credentials
+    try:
+        sts = boto3.client('sts', region_name=config['aws_region'])
+        identity = sts.get_caller_identity()
+        print(f"AWS Identity:")
+        print(f"  Account: {identity['Account']}")
+        print(f"  User/Role: {identity['Arn'].split('/')[-1]}")
+        print()
+    except Exception as e:
+        print(f"⚠️  Warning: Could not verify AWS credentials: {e}")
+        print("Please ensure AWS credentials are configured.")
+        print()
+    
+    # Run setup
+    setup = KnowledgeBaseS3Setup(config)
     
     if setup.setup():
-        print("\n✅ Knowledge Base S3 setup completed successfully!")
+        print()
+        print("=" * 60)
+        print("✅ Knowledge Base S3 setup completed successfully!")
+        print("=" * 60)
+        print()
         print(f"Bucket name: {setup.bucket_name}")
-        print(f"Region: {settings.AWS_REGION}")
-        print("\nNext steps:")
+        print(f"Region: {setup.aws_region}")
+        print()
+        print("Next steps:")
         print("1. Create Bedrock Knowledge Base in AWS Console")
         print("2. Configure Knowledge Base to use this S3 bucket as data source")
         print("3. Run sync to index the content")
+        print()
     else:
-        print("\n❌ Knowledge Base S3 setup failed. Check logs for details.")
+        print()
+        print("=" * 60)
+        print("❌ Knowledge Base S3 setup failed")
+        print("=" * 60)
+        print()
+        print("Check the logs above for details.")
+        print()
         sys.exit(1)
 
 
