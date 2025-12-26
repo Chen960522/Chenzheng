@@ -23,7 +23,6 @@ argon2-cffi==23.1.0
 
 # Data Processing
 pydantic==2.5.3
-pydantic-settings==2.1.0
 python-dotenv==1.0.0
 pyyaml==6.0.1
 
