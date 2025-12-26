@@ -1,0 +1,227 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Bedrock Knowledge Base for AWS Pricing Assistant - Alternative deployment method'
+
+Parameters:
+  S3BucketName:
+    Type: String
+    Default: aws-pricing-assistant-kb-data
+    Description: S3 bucket containing knowledge base data
+    
+  EmbeddingModelId:
+    Type: String
+    Default: amazon.titan-embed-text-v2:0
+    Description: Bedrock embedding model ID
+
+Resources:
+  # OpenSearch Serverless Encryption Policy
+  EncryptionPolicy:
+    Type: AWS::OpenSearchServerless::SecurityPolicy
+    Properties:
+      Name: aws-pricing-kb-encryption
+      Type: encryption
+      Policy: !Sub |
+        {
+          "Rules": [
+            {
+              "ResourceType": "collection",
+              "Resource": ["collection/aws-pricing-kb-*"]
+            }
+          ],
+          "AWSOwnedKey": true
+        }
+
+  # OpenSearch Serverless Network Policy
+  NetworkPolicy:
+    Type: AWS::OpenSearchServerless::SecurityPolicy
+    Properties:
+      Name: aws-pricing-kb-network
+      Type: network
+      Policy: !Sub |
+        [
+          {
+            "Rules": [
+              {
+                "ResourceType": "collection",
+                "Resource": ["collection/aws-pricing-kb-*"]
+              }
+            ],
+            "AllowFromPublic": true
+          }
+        ]
+
+  # OpenSearch Serverless Collection
+  OpenSearchCollection:
+    Type: AWS::OpenSearchServerless::Collection
+    DependsOn:
+      - EncryptionPolicy
+      - NetworkPolicy
+    Properties:
+      Name: aws-pricing-kb-col
+      Type: VECTORSEARCH
+      Description: Vector store for AWS Pricing Assistant Knowledge Base
+
+  # Data Access Policy
+  DataAccessPolicy:
+    Type: AWS::OpenSearchServerless::AccessPolicy
+    DependsOn: OpenSearchCollection
+    Properties:
+      Name: aws-pricing-kb-access
+      Type: data
+      Policy: !Sub |
+        [
+          {
+            "Rules": [
+              {
+                "ResourceType": "collection",
+                "Resource": ["collection/aws-pricing-kb-col"],
+                "Permission": [
+                  "aoss:CreateCollectionItems",
+                  "aoss:UpdateCollectionItems",
+                  "aoss:DescribeCollectionItems"
+                ]
+              },
+              {
+                "ResourceType": "index",
+                "Resource": ["index/aws-pricing-kb-col/*"],
+                "Permission": [
+                  "aoss:CreateIndex",
+                  "aoss:DescribeIndex",
+                  "aoss:ReadDocument",
+                  "aoss:WriteDocument",
+                  "aoss:UpdateIndex",
+                  "aoss:DeleteIndex"
+                ]
+              }
+            ],
+            "Principal": [
+              "${KnowledgeBaseRole.Arn}",
+              "arn:aws:iam::${AWS::AccountId}:root"
+            ]
+          }
+        ]
+
+  # IAM Role for Knowledge Base
+  KnowledgeBaseRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: AWSPricingAssistantKBRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: bedrock.amazonaws.com
+            Action: sts:AssumeRole
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref AWS::AccountId
+              ArnLike:
+                aws:SourceArn: !Sub 'arn:aws:bedrock:${AWS::Region}:${AWS::AccountId}:knowledge-base/*'
+      Policies:
+        - PolicyName: BedrockKBPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              # S3 permissions
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:ListBucket
+                Resource:
+                  - !Sub 'arn:aws:s3:::${S3BucketName}'
+                  - !Sub 'arn:aws:s3:::${S3BucketName}/*'
+              # Bedrock permissions
+              - Effect: Allow
+                Action:
+                  - bedrock:InvokeModel
+                Resource: !Sub 'arn:aws:bedrock:${AWS::Region}::foundation-model/${EmbeddingModelId}'
+              # OpenSearch Serverless permissions
+              - Effect: Allow
+                Action:
+                  - aoss:APIAccessAll
+                Resource: !GetAtt OpenSearchCollection.Arn
+
+  # Bedrock Knowledge Base
+  KnowledgeBase:
+    Type: AWS::Bedrock::KnowledgeBase
+    DependsOn:
+      - DataAccessPolicy
+    Properties:
+      Name: aws-pricing-assistant-kb
+      Description: Knowledge Base for AWS Pricing Assistant with cloud service mappings and pricing data
+      RoleArn: !GetAtt KnowledgeBaseRole.Arn
+      KnowledgeBaseConfiguration:
+        Type: VECTOR
+        VectorKnowledgeBaseConfiguration:
+          EmbeddingModelArn: !Sub 'arn:aws:bedrock:${AWS::Region}::foundation-model/${EmbeddingModelId}'
+      StorageConfiguration:
+        Type: OPENSEARCH_SERVERLESS
+        OpensearchServerlessConfiguration:
+          CollectionArn: !GetAtt OpenSearchCollection.Arn
+          VectorIndexName: bedrock-knowledge-base-default-index
+          FieldMapping:
+            VectorField: bedrock-knowledge-base-default-vector
+            TextField: AMAZON_BEDROCK_TEXT_CHUNK
+            MetadataField: AMAZON_BEDROCK_METADATA
+
+  # Data Source
+  DataSource:
+    Type: AWS::Bedrock::DataSource
+    Properties:
+      Name: s3-pricing-data
+      Description: S3 bucket containing AWS pricing and service mapping data
+      KnowledgeBaseId: !Ref KnowledgeBase
+      DataSourceConfiguration:
+        Type: S3
+        S3Configuration:
+          BucketArn: !Sub 'arn:aws:s3:::${S3BucketName}'
+      VectorIngestionConfiguration:
+        ChunkingConfiguration:
+          ChunkingStrategy: FIXED_SIZE
+          FixedSizeChunkingConfiguration:
+            MaxTokens: 512
+            OverlapPercentage: 20
+
+Outputs:
+  KnowledgeBaseId:
+    Description: Bedrock Knowledge Base ID
+    Value: !Ref KnowledgeBase
+    Export:
+      Name: !Sub '${AWS::StackName}-KnowledgeBaseId'
+
+  KnowledgeBaseArn:
+    Description: Bedrock Knowledge Base ARN
+    Value: !GetAtt KnowledgeBase.KnowledgeBaseArn
+    Export:
+      Name: !Sub '${AWS::StackName}-KnowledgeBaseArn'
+
+  OpenSearchCollectionArn:
+    Description: OpenSearch Serverless Collection ARN
+    Value: !GetAtt OpenSearchCollection.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-CollectionArn'
+
+  OpenSearchCollectionEndpoint:
+    Description: OpenSearch Serverless Collection Endpoint
+    Value: !GetAtt OpenSearchCollection.CollectionEndpoint
+    Export:
+      Name: !Sub '${AWS::StackName}-CollectionEndpoint'
+
+  DataSourceId:
+    Description: Data Source ID
+    Value: !Ref DataSource
+    Export:
+      Name: !Sub '${AWS::StackName}-DataSourceId'
+
+  ServiceRoleArn:
+    Description: Knowledge Base Service Role ARN
+    Value: !GetAtt KnowledgeBaseRole.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-ServiceRoleArn'
+
+  NextSteps:
+    Description: Next steps after stack creation
+    Value: !Sub |
+      1. Update .env file: BEDROCK_KNOWLEDGE_BASE_ID=${KnowledgeBase}
+      2. Upload data: python scripts/setup_knowledge_base_s3.py
+      3. Start ingestion: aws bedrock-agent start-ingestion-job --knowledge-base-id ${KnowledgeBase} --data-source-id ${DataSource}

@@ -97,9 +97,16 @@ logger = get_logger(__name__)
 def lambda_handler(event, context):
     """
     Lambda handler for scheduled web crawler execution
+    
+    Note: AWS_REGION is automatically provided by Lambda runtime.
+    We use DYNAMODB_REGION as a custom variable if needed.
     """
     try:
         logger.info("Starting scheduled web crawler execution")
+        
+        # Get region from Lambda environment (AWS_REGION is auto-set by Lambda)
+        region = os.environ.get('AWS_REGION') or os.environ.get('DYNAMODB_REGION', 'us-east-1')
+        logger.info(f"Using AWS region: {region}")
         
         # Initialize crawler
         db_client = get_dynamodb_client()
@@ -115,7 +122,8 @@ def lambda_handler(event, context):
             'body': json.dumps({
                 'message': 'Crawler executed successfully',
                 'report': report,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.utcnow().isoformat(),
+                'region': region
             })
         }
         
@@ -237,7 +245,7 @@ EOF
         --zip-file fileb:///tmp/crawler-lambda.zip \
         --timeout 900 \
         --memory-size 512 \
-        --environment "Variables={AWS_REGION=$AWS_REGION,TABLE_PREFIX=$APP_NAME}" \
+        --environment "Variables={TABLE_PREFIX=$APP_NAME,DYNAMODB_REGION=$AWS_REGION}" \
         --region "$AWS_REGION" \
         --tags Application=aws-pricing-assistant,Component=crawler
     
