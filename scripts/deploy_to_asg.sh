@@ -14,7 +14,8 @@ NC='\033[0m'
 # 配置
 AWS_REGION="${AWS_REGION:-us-east-1}"
 STACK_NAME="${STACK_NAME:-aws-pricing-assistant}"
-REPO_URL="${REPO_URL:-https://github.com/your-repo/aws-pricing-assistant.git}"
+REPO_URL="${REPO_URL:-https://github.com/Chen960522/Chenzheng.git}"
+SSH_KEY="${SSH_KEY:-~/.ssh/aws-pricing-assistant-key.pem}"
 
 echo -e "${GREEN}=== 部署后端应用到 Auto Scaling Group ===${NC}"
 echo "AWS Region: $AWS_REGION"
@@ -97,8 +98,16 @@ for IP in $INSTANCE_IPS; do
     print_info "部署到实例: $IP"
     print_info "========================================="
     
+    # 检查 SSH 密钥
+    if [ ! -f "$SSH_KEY" ]; then
+        print_error "SSH 密钥文件不存在: $SSH_KEY"
+        print_info "请设置 SSH_KEY 环境变量或将密钥放在默认位置"
+        FAILED_COUNT=$((FAILED_COUNT + 1))
+        continue
+    fi
+    
     # SSH 部署
-    if ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 ec2-user@$IP << 'ENDSSH'
+    if ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no -o ConnectTimeout=10 ec2-user@$IP << 'ENDSSH'
         set -e
         
         echo "1. 创建应用目录..."
