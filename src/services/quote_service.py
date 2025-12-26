@@ -136,7 +136,7 @@ class QuoteService:
         user_id: str,
         limit: int = 50,
         start_key: Optional[Dict[str, Any]] = None
-    ) -> tuple[List[Quote], Optional[Dict[str, Any]]]:
+    ) -> Tuple[List[Quote], Optional[Dict[str, Any]]]:
         """
         List all quotes for a specific user.
         
@@ -178,7 +178,7 @@ class QuoteService:
         self,
         limit: int = 50,
         start_key: Optional[Dict[str, Any]] = None
-    ) -> tuple[List[Quote], Optional[Dict[str, Any]]]:
+    ) -> Tuple[List[Quote], Optional[Dict[str, Any]]]:
         """
         List all quotes (admin function).
         

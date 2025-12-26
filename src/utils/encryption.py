@@ -118,7 +118,7 @@ class DataEncryption:
         return base64.urlsafe_b64encode(key).decode('utf-8')
     
     @staticmethod
-    def derive_key_from_password(password: str, salt: Optional[bytes] = None) -> tuple[str, str]:
+    def derive_key_from_password(password: str, salt: Optional[bytes] = None) -> Tuple[str, str]:
         """
         Derive an encryption key from a password.
         
@@ -165,7 +165,7 @@ class FieldEncryption:
         """
         self.encryption = encryption
     
-    def encrypt_fields(self, data: dict, fields: list[str]) -> dict:
+    def encrypt_fields(self, data: dict, fields: List[str]) -> dict:
         """
         Encrypt specified fields in a dictionary.
         
@@ -192,7 +192,7 @@ class FieldEncryption:
         
         return encrypted_data
     
-    def decrypt_fields(self, data: dict, fields: list[str]) -> dict:
+    def decrypt_fields(self, data: dict, fields: List[str]) -> dict:
         """
         Decrypt specified fields in a dictionary.
         
@@ -266,7 +266,7 @@ def decrypt_sensitive_data(encrypted_data: str) -> Optional[str]:
     return get_encryption().decrypt(encrypted_data)
 
 
-def encrypt_dict_fields(data: dict, fields: list[str]) -> dict:
+def encrypt_dict_fields(data: dict, fields: List[str]) -> dict:
     """
     Encrypt specified fields in a dictionary.
     
@@ -280,7 +280,7 @@ def encrypt_dict_fields(data: dict, fields: list[str]) -> dict:
     return get_field_encryption().encrypt_fields(data, fields)
 
 
-def decrypt_dict_fields(data: dict, fields: list[str]) -> dict:
+def decrypt_dict_fields(data: dict, fields: List[str]) -> dict:
     """
     Decrypt specified fields in a dictionary.
     
