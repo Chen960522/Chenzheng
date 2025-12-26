@@ -270,7 +270,7 @@ create_eventbridge_rule() {
             --schedule-expression "$SCHEDULE_EXPRESSION" \
             --state ENABLED \
             --region "$AWS_REGION" \
-            --tags key=Application,value=aws-pricing-assistant
+            --tags Key=Application,Value=aws-pricing-assistant
         
         print_info "EventBridge rule created: $RULE_NAME"
     fi
