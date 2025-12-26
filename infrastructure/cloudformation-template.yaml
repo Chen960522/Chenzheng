@@ -558,3 +558,9 @@ Outputs:
     Value: !Ref ApplicationLogGroup
     Export:
       Name: !Sub '${AWS::StackName}-LogGroup'
+  
+  AutoScalingGroupName:
+    Description: Auto Scaling Group Name
+    Value: !Ref AutoScalingGroup
+    Export:
+      Name: !Sub '${AWS::StackName}-ASG'
